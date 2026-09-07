@@ -20,7 +20,7 @@ const js = await readFile(join(assetsDir, jsFile), 'utf8')
 // 번들 안의 문자열 리터럴에 </script 가 들어 있으면 태그가 조기에 닫힙니다
 const safeJs = js.replaceAll('</script', '<\\/script')
 
-const html = `<title>나주 문화유산 퀘스트 — 다시초등학교와 복암리</title>
+const html = `<title>Quest on Naju — 다시초등학교와 복암리</title>
 
 <style>
   /* 오전 10시의 운동장에는 다크모드가 없습니다. 단일 테마는 의도된 선택입니다. */
@@ -84,7 +84,7 @@ const html = `<title>나주 문화유산 퀘스트 — 다시초등학교와 복
       <div class="band b"></div>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:7px">
-      <p class="boot-title">나주 문화유산 퀘스트</p>
+      <p class="boot-title">Quest on Naju</p>
       <p class="boot-sub">다시초등학교에서 복암리 고분군까지 · 전남 나주시 다시면</p>
     </div>
     <div class="bar"><i></i></div>
