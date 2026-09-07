@@ -1,0 +1,61 @@
+[
+  {
+    "id": "najueupseong-00-geumseonggwan",
+    "site": "najueupseong",
+    "title": "작은 서울의 문턱에서",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-mayor", "marker": "!" },
+    "turnIn": { "npc": "npc-mayor", "marker": "?" },
+    "dialogue": {
+      "offer": "반갑네! 나는 나주목을 다스리는 나주목사라네. 조선시대 나주는 '작은 서울'이라 불릴 만큼 성곽과 관아가 당당했던 호남의 중심도시였지!\n나주읍성에는 한양도성처럼 동서남북 네 개의 큰 성문이 있단다. 남고문, 동점문, 서성문, 북망문이 바로 그곳이지!\n자, 나와 함께 나주읍성 4대문을 순례하며 각 성문이 가진 이야기와 임금님의 객사인 '금성관'의 비밀을 밝혀보겠나?",
+      "progress": "아직 금성관 앞 문제를 풀지 못했구나. 저기 가장 큰 건물 앞에서 다시 살펴보렴.",
+      "complete": "그래, 저 금성관이 바로 나주목의 심장이란다. 이제 4대문을 돌아볼 준비가 됐구나."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-najueupseong-geumseonggwan", "label": "금성관 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 150,
+      "items": [],
+      "codex": ["najueupseong-geumseonggwan"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["읍성", "객사", "지방 관아"]
+    }
+  },
+  {
+    "id": "najueupseong-01-four-gates",
+    "site": "najueupseong",
+    "title": "네 성문의 수호자",
+    "type": "COLLECT",
+    "requiredLevel": 1,
+    "prerequisites": ["najueupseong-00-geumseonggwan"],
+    "giver": { "npc": "npc-mayor", "marker": "!" },
+    "turnIn": { "npc": "npc-mayor", "marker": "?" },
+    "dialogue": {
+      "offer": "자, 이제 나주읍성 4대문을 순례하며 각 성문을 지키는 수문장의 문제를 풀고, 무너진 성벽을 다시 쌓아 보렴.\n남고문, 동점문, 서성문, 북망문 네 곳을 모두 돌아야 마패를 다 모을 수 있단다.",
+      "progress": "아직 마패를 다 모으지 못했구나. 네 성문을 모두 돌며 수문장의 문제를 풀어 보렴.",
+      "complete": "장하다! 나주읍성 네 성문을 모두 지켜냈구나. 오늘부로 그대를 나주읍성 수호대장으로 임명하겠네!"
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-wall-namgomun", "label": "남고문 수문장 문제 풀기" },
+      { "id": "o2", "kind": "puzzle", "target": "puzzle-wall-dongjeommun", "label": "동점문 수문장 문제 풀기" },
+      { "id": "o3", "kind": "puzzle", "target": "puzzle-wall-seoseongmun", "label": "서성문 수문장 문제 풀기" },
+      { "id": "o4", "kind": "puzzle", "target": "puzzle-wall-bukmangmun", "label": "북망문 수문장 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 450,
+      "items": ["item-guardian-token"],
+      "codex": ["gate-namgomun", "gate-dongjeommun", "gate-seoseongmun", "gate-bukmangmun", "item-guardian-token"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["나주읍성", "4대문", "성곽 구조"]
+    }
+  }
+]

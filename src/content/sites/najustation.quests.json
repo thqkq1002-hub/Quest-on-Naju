@@ -1,0 +1,120 @@
+[
+  {
+    "id": "najustation-01-plaza",
+    "site": "najustation",
+    "title": "옛 나주역 앞에서",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-station-guide", "marker": "!" },
+    "turnIn": { "npc": "npc-station-guide", "marker": "?" },
+    "dialogue": {
+      "offer": "여기가 옛 나주역이야. 1929년 이곳에서 있었던 작은 다툼 하나가, 훗날 전국을 뒤흔든 학생들의 항일 운동으로 번졌단다. 함께 들어가 보겠니?",
+      "progress": "천천히 둘러보렴. 대합실부터 가 보자꾸나.",
+      "complete": "그래, 지금부터 그날의 이야기를 하나씩 따라가 보자."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "dialogue", "target": "npc-station-guide-explain", "label": "안내원 이야기 듣기" }
+    ],
+    "rewards": {
+      "xp": 70,
+      "items": ["item-station-pamphlet"],
+      "codex": ["item-station-pamphlet"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 일제의 침략과 광복을 위한 노력",
+      "concepts": ["나주역", "광주학생독립운동", "일제강점기"]
+    }
+  },
+  {
+    "id": "najustation-02-waiting-room",
+    "site": "najustation",
+    "title": "대합실의 연표",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": ["najustation-01-plaza"],
+    "giver": { "npc": "npc-station-clerk", "marker": "!" },
+    "turnIn": { "npc": "npc-station-clerk", "marker": "?" },
+    "dialogue": {
+      "offer": "대합실 앞에 붙은 연표 카드 세 장을 보렴. 1920년대가 어떤 시대였는지 알 수 있을 거야. 문제도 함께 풀어보자.",
+      "progress": "카드 세 장의 문제를 다 풀어보렴.",
+      "complete": "잘했다. 이제 그날, 이 역에서 있었던 일을 직접 들어보자꾸나."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-najustation-timeline-1", "label": "연표 카드 문제 풀기 (1/3)" },
+      { "id": "o2", "kind": "puzzle", "target": "puzzle-najustation-timeline-2", "label": "연표 카드 문제 풀기 (2/3)" },
+      { "id": "o3", "kind": "puzzle", "target": "puzzle-najustation-timeline-3", "label": "연표 카드 문제 풀기 (3/3)" }
+    ],
+    "rewards": {
+      "xp": 90,
+      "items": ["item-1920s-album"],
+      "codex": ["item-1920s-album"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 일제의 침략과 광복을 위한 노력",
+      "concepts": ["1920년대 시대상", "조선교육령", "일제강점기 학교"]
+    }
+  },
+  {
+    "id": "najustation-03-platform",
+    "site": "najustation",
+    "title": "1929년 10월 30일, 승강장에서",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": ["najustation-02-waiting-room"],
+    "giver": { "npc": "npc-park-junchae", "marker": "!" },
+    "turnIn": { "npc": "npc-park-junchae", "marker": "?" },
+    "dialogue": {
+      "offer": "1929년 10월 30일, 바로 이 승강장에서 있었던 일이야. 나와 박기옥, 그리고 후쿠다에게 그날 이야기를 들어보렴.",
+      "progress": "세 사람의 이야기를 아직 다 듣지 못했다면, 계속 이야기를 들어보렴.",
+      "complete": "그래... 나주역에서 시작된 작은 용기가, 훗날 전국으로 퍼져나간 광주학생독립운동의 불꽃이 되었단다. 이제 너도 그날의 이야기를 알게 되었구나."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "dialogue", "target": "npc-park-junchae-explain", "label": "박준채의 이야기 듣기" },
+      { "id": "o2", "kind": "dialogue", "target": "npc-park-giok-explain", "label": "박기옥의 이야기 듣기" },
+      { "id": "o3", "kind": "dialogue", "target": "npc-fukuda-explain", "label": "후쿠다의 이야기 듣기" },
+      { "id": "o4", "kind": "puzzle", "target": "puzzle-najustation-report", "label": "편향 분석 리포트 작성" }
+    ],
+    "rewards": {
+      "xp": 110,
+      "items": ["item-testimony-record"],
+      "codex": ["item-testimony-record"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 일제의 침략과 광복을 위한 노력",
+      "concepts": ["역사적 증언", "사료 비판", "불공정한 조사"]
+    }
+  },
+  {
+    "id": "najustation-04-memorial",
+    "site": "najustation",
+    "title": "그날을 기억하며",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": ["najustation-03-platform"],
+    "giver": { "npc": "npc-memorial-keeper", "marker": "!" },
+    "turnIn": { "npc": "npc-memorial-keeper", "marker": "?" },
+    "dialogue": {
+      "offer": "이곳은 그날을 기리는 자리란다. 만세비 앞에서 함께 만세를 외쳐보고, 방명록에 마음을 남겨 주겠니?",
+      "progress": "만세비 앞에서 만세를 외치고, 방명록에도 한 마디 남겨보렴.",
+      "complete": "고맙구나. 너의 마음이 그날의 학생들에게도 가닿을 거야."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "interact", "target": "mansei-monument", "label": "만세비 앞에서 만세 외치기", "count": 3 },
+      { "id": "o2", "kind": "puzzle", "target": "puzzle-najustation-guestbook", "label": "방명록에 메시지 남기기" }
+    ],
+    "rewards": {
+      "xp": 110,
+      "items": ["item-mansei-badge"],
+      "codex": ["item-mansei-badge"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 일제의 침략과 광복을 위한 노력",
+      "concepts": ["학생독립운동기념일", "추모와 기억"]
+    }
+  }
+]

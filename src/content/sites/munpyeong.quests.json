@@ -1,0 +1,114 @@
+[
+  {
+    "id": "munpyeong-01-birthplace",
+    "site": "munpyeong",
+    "title": "무민공이 태어난 곳",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-birthplace-caretaker", "marker": "!" },
+    "turnIn": { "npc": "npc-birthplace-caretaker", "marker": "?" },
+    "dialogue": {
+      "offer": "여기가 나대용 장군께서 태어나 학문과 무예를 익히신 생가일세. 안내판의 문제부터 풀어보게.",
+      "progress": "안내판의 문제부터 풀어보렴.",
+      "complete": "그렇지. 이순신 장군을 만나 거북선과 판옥선을 개량하신 게 바로 그 어른이시라네."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-munpyeong-birthplace", "label": "생가 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 90,
+      "items": ["item-na-blueprint"],
+      "codex": ["item-na-blueprint"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 임진왜란과 나라를 지킨 사람들",
+      "concepts": ["나대용", "거북선", "판옥선"]
+    }
+  },
+  {
+    "id": "munpyeong-02-sochungsa",
+    "site": "munpyeong",
+    "title": "소충사에서 배우는 호국충절",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-shrine-keeper", "marker": "!" },
+    "turnIn": { "npc": "npc-shrine-keeper", "marker": "?" },
+    "dialogue": {
+      "offer": "이곳 소충사는 나대용 장군의 호국충절을 기리는 사당일세. 위패를 모신 뜻을 알겠는가? 안내판 문제를 풀어보게.",
+      "progress": "안내판의 문제부터 풀어보렴.",
+      "complete": "옳거니. 나라를 지킨 첫 싸움을 잊지 않는 것, 그것이 이 사당을 세운 까닭일세."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-munpyeong-sochungsa", "label": "소충사 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 90,
+      "items": ["item-incense"],
+      "codex": ["item-incense"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 임진왜란과 나라를 지킨 사람들",
+      "concepts": ["소충사", "호국 정신", "사당"]
+    }
+  },
+  {
+    "id": "munpyeong-03-shipyard",
+    "site": "munpyeong",
+    "title": "거북선을 건조하라",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-shipwright", "marker": "!" },
+    "turnIn": { "npc": "npc-shipwright", "marker": "?" },
+    "dialogue": {
+      "offer": "이 배가 바로 거북선일세. 등딱지 모양 덮개에 쇠송곳을 촘촘히 박았지. 왜 그리했는지 아는가? 안내판 문제를 풀어보게.",
+      "progress": "안내판의 문제부터 풀어보렴.",
+      "complete": "맞았네! 왜군이 배 위로 뛰어오르지 못하게 막은 것이야. 그게 거북선의 무서운 점일세."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-munpyeong-shipyard", "label": "거북선 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 90,
+      "items": ["item-turtle-ship-model"],
+      "codex": ["item-turtle-ship-model"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 임진왜란과 나라를 지킨 사람들",
+      "concepts": ["거북선 구조", "임진왜란 해전"]
+    }
+  },
+  {
+    "id": "munpyeong-04-changseon",
+    "site": "munpyeong",
+    "title": "창선을 벼려라",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-blacksmith", "marker": "!" },
+    "turnIn": { "npc": "npc-blacksmith", "marker": "?" },
+    "dialogue": {
+      "offer": "나대용 장군께서 거북선 이후에 만드신 배가 하나 더 있네. 좁고 빠른 돌격선이지. 이름을 아는가? 안내판 문제를 풀어보게.",
+      "progress": "안내판의 문제부터 풀어보렴.",
+      "complete": "그렇네, 창선(槍船)일세. 거북선만큼 유명하진 않아도, 그 어른의 재주를 보여주는 배지."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-munpyeong-changseon", "label": "창선 연구소 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 90,
+      "items": ["item-mumin-sword"],
+      "codex": ["item-mumin-sword"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 임진왜란과 나라를 지킨 사람들",
+      "concepts": ["창선", "조선 수군의 무기"]
+    }
+  }
+]

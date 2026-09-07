@@ -1,0 +1,30 @@
+[
+  {
+    "id": "ddeuldeulgang-01-melody",
+    "site": "ddeuldeulgang",
+    "title": "솔바람에 실려 온 노래",
+    "type": "COLLECT",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-soli", "marker": "!" },
+    "turnIn": { "npc": "npc-soli", "marker": "?" },
+    "dialogue": {
+      "offer": "솔솔~ 시원한 솔바람이 부는 이곳은 남평 드들강 솔밭유원지야!\n기품 있는 소나무 숲길을 걸으면 마음이 아주 편안해진단다. 도심에서 가까워 많은 사람이 찾는 힐링 명소지!\n이곳 솔밭에는 아주 특별한 보물이 있어. 바로 동요 '엄마야 누나야'를 만드신 천재 작곡가 안성현 선생님의 노래비란다.\n솔밭길을 따라 걸으며 안성현 선생님의 아름다운 멜로디를 함께 완성해 볼까?",
+      "progress": "아직 리듬 악보를 다 완성하지 못했구나. 저 강가에서 솔방울 음표를 마저 받아 보렴.",
+      "complete": "정말 잘했어! 안성현 선생님의 아름다운 멜로디를 완성했구나. 솔바람도 기뻐하고 있어~"
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-pine-rhythm", "label": "리듬 악보 완성하기" }
+    ],
+    "rewards": {
+      "xp": 250,
+      "items": ["item-ansunghyeon-songbook"],
+      "codex": ["ddeuldeulgang-songbi", "item-ansunghyeon-songbook"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["지역 음악가", "동요", "자연 휴양지"]
+    }
+  }
+]

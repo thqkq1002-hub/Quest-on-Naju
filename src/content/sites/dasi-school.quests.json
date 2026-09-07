@@ -1,0 +1,68 @@
+[
+  {
+    "id": "dasi-00-meet-teacher",
+    "site": "naju-world",
+    "title": "흙냄새 나는 언덕",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-teacher", "marker": "!" },
+    "turnIn": { "npc": "npc-teacher", "marker": "?" },
+    "dialogue": {
+      "offer": "어, 왔구나. 마침 잘 됐다. 오늘 사회 시간에 쓸 게 있는데 말이야.\n너 복암리라고 들어봤니? 여기서 보이진 않지만, 같은 다시면이야.\n거기 언덕이 몇 개 있는데, 그냥 언덕이 아니라 1500년 된 무덤이란다.\n나주 복암리 고분군. 사적 404호. 네가 사는 동네에 그런 게 있는 거야.\n한번 가볼래? 가겠다고 하면 내가 뱃길을 알려주마.",
+      "progress": "복암리에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "좋다. 영산강 뱃길을 따라가면 금방이야. 오른쪽 위 「나주 지도」를 누르면 배가 뜬단다."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "dialogue",
+        "target": "npc-teacher-intro",
+        "label": "담임 선생님의 이야기 듣기"
+      }
+    ],
+    "rewards": {
+      "xp": 80,
+      "items": [],
+      "codex": [],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["우리 동네의 문화유산", "다시면", "사적"]
+    }
+  },
+  {
+    "id": "dasi-01-pear-quiz",
+    "site": "naju-world",
+    "title": "배나무 밭 체험",
+    "type": "COLLECT",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-orchard-elder", "marker": "!" },
+    "turnIn": { "npc": "npc-orchard-elder", "marker": "?" },
+    "dialogue": {
+      "offer": "어서 오렴! 여기가 바로 전국에서 으뜸가는 나주 배밭이란다.\n나주배는 영산강 강변의 기름진 흙과 풍부한 햇살 덕분에 알이 크고, 껍질이 얇으며, 수분이 많아 아삭아삭 제일 달콤하지!\n삼국시대부터 재배했다는 기록이 있을 만큼 역사가 깊고, 비타민과 기관지에 좋은 영양도 풍부하단다.\n자, 이제 잘 익은 나주배를 직접 따보는 체험을 해볼까?",
+      "progress": "아직 배를 다 못 땄구나. 저기 배밭 앞에서 다시 도전해 보렴.",
+      "complete": "잘했다! 노랗게 잘 익은 배들을 야무지게도 땄구나. 우리 나주 배가 왜 유명한지 이제 알겠지? 자, 이 상자는 네 몫이란다."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "puzzle",
+        "target": "puzzle-pear-catch",
+        "label": "나주배 따기 체험하기"
+      }
+    ],
+    "rewards": {
+      "xp": 60,
+      "items": ["item-golden-pear"],
+      "codex": ["item-golden-pear"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["나주배", "지역 특산물"]
+    }
+  }
+]

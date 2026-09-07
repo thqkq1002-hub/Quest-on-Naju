@@ -1,0 +1,59 @@
+[
+  {
+    "id": "yeongsanpo-01-heritage",
+    "site": "yeongsanpo",
+    "title": "근대 거리를 걷다",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-captain", "marker": "!" },
+    "turnIn": { "npc": "npc-captain", "marker": "?" },
+    "dialogue": {
+      "offer": "어서 오렴! 이곳은 옛날 영산강을 따라 배가 드나들던 호남 물류의 중심지, 영산포란다!\n먼저 영산포 역사갤러리와 타오르는 강 문학관에서 영산포 사람들의 근대 역사와 삶의 이야기를 들어보렴.",
+      "progress": "아직 두 곳을 다 둘러보지 않았구나. 역사갤러리와 문학관의 안내판 앞에서 문제부터 풀어 보렴.",
+      "complete": "잘 들었구나! 영산포가 걸어온 근대의 이야기, 이제 조금은 알겠지?"
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-yeongsanpo-gallery", "label": "역사갤러리 안내판 문제 풀기" },
+      { "id": "o2", "kind": "puzzle", "target": "puzzle-yeongsanpo-literature", "label": "문학관 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 150,
+      "items": [],
+      "codex": ["yeongsanpo-gallery", "yeongsanpo-literature"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["근대문화유산", "영산강 수운", "지역 문학"]
+    }
+  },
+  {
+    "id": "yeongsanpo-02-hongeo",
+    "site": "yeongsanpo",
+    "title": "코끝이 알싸한 삼합",
+    "type": "COLLECT",
+    "requiredLevel": 1,
+    "prerequisites": ["yeongsanpo-01-heritage"],
+    "giver": { "npc": "npc-captain", "marker": "!" },
+    "turnIn": { "npc": "npc-captain", "marker": "?" },
+    "dialogue": {
+      "offer": "역사 공부를 마쳤다면 영산포의 명물! 코가 뻥 뚫리는 알싸한 '숙성 홍어'를 맛보러 홍어거리로 가볼까?\n저기 좌판에서 홍어삼합 만들기를 도와주렴.",
+      "progress": "아직 홍어거리에서 삼합을 다 만들지 못했구나. 저기 좌판 앞에서 다시 도전해 보렴.",
+      "complete": "제법인데! 홍어, 묵은지, 수육을 한입에 딱 맞춰 먹는 게 바로 홍어삼합이란다. 이제 너도 영산포 사람 다 됐구나!"
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-hongeo-combo", "label": "홍어삼합 만들기" }
+    ],
+    "rewards": {
+      "xp": 220,
+      "items": ["item-hongeo-samhap"],
+      "codex": ["item-hongeo-samhap"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["숙성·발효 식품", "홍어삼합", "지역 식문화"]
+    }
+  }
+]

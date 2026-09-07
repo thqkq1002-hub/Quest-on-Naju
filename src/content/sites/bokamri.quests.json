@@ -1,0 +1,210 @@
+[
+  {
+    "id": "bokamri-00-arrival",
+    "site": "bokamri",
+    "title": "흙냄새 나는 언덕",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": {
+      "npc": "npc-village-elder",
+      "marker": "!"
+    },
+    "turnIn": {
+      "npc": "npc-excavation-lead",
+      "marker": "?"
+    },
+    "dialogue": {
+      "offer": "저 언덕이 그냥 언덕으로 보이는가? 올라가 보게. 눈이 좀 뜨일 걸세.",
+      "progress": "아직 언덕 위에 안 올라갔군.",
+      "complete": "이제 알겠지. 저건 언덕이 아니라 무덤일세."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "reach",
+        "target": "viewpoint-hilltop",
+        "label": "언덕 위 전망대까지 올라가기"
+      },
+      {
+        "id": "o2",
+        "kind": "interact",
+        "target": "signboard-01",
+        "label": "안내판 읽기"
+      }
+    ],
+    "rewards": {
+      "xp": 150,
+      "items": [],
+      "codex": [
+        "bokamri-site"
+      ],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 고대 국가의 형성",
+      "concepts": [
+        "고분",
+        "분구",
+        "유적의 입지"
+      ]
+    }
+  },
+  {
+    "id": "bokamri-01-first-dig",
+    "site": "bokamri",
+    "title": "첫 번째 흙손",
+    "type": "EXCAVATE",
+    "requiredLevel": 2,
+    "prerequisites": [
+      "bokamri-00-arrival"
+    ],
+    "giver": {
+      "npc": "npc-excavation-lead",
+      "marker": "!"
+    },
+    "turnIn": {
+      "npc": "npc-excavation-lead",
+      "marker": "?"
+    },
+    "dialogue": {
+      "offer": "여긴 함부로 파면 안 되네. 층을 읽을 줄 알아야 해. 흙손부터 잡게.",
+      "progress": "아직 흙을 덜 걷어냈군.",
+      "complete": "제법인데? 자네 손끝에 눈이 달렸군."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "reach",
+        "target": "trench-3",
+        "label": "3호 트렌치로 가기"
+      },
+      {
+        "id": "o2",
+        "kind": "interact",
+        "target": "layer-marker",
+        "label": "층위 표지 확인",
+        "count": 3
+      },
+      {
+        "id": "o3",
+        "kind": "puzzle",
+        "target": "puzzle-stratigraphy",
+        "label": "층위 순서 맞히기"
+      }
+    ],
+    "rewards": {
+      "xp": 250,
+      "items": [
+        "tool-trowel"
+      ],
+      "codex": [
+        "term-stratigraphy",
+        "term-trench",
+        "tool-trowel"
+      ],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 고대 국가의 형성",
+      "concepts": [
+        "층위학",
+        "발굴 방법론",
+        "트렌치"
+      ]
+    }
+  },
+  {
+    "id": "bokamri-02-jar-coffin",
+    "site": "bokamri",
+    "title": "항아리에 잠든 사람",
+    "type": "OBSERVE",
+    "requiredLevel": 2,
+    "prerequisites": [
+      "bokamri-01-first-dig"
+    ],
+    "giver": {
+      "npc": "npc-researcher",
+      "marker": "!"
+    },
+    "turnIn": {
+      "npc": "npc-researcher",
+      "marker": "?"
+    },
+    "dialogue": {
+      "offer": "저 큰 항아리 두 개가 왜 입을 맞대고 있는지, 직접 보고 오세요.",
+      "progress": "영산강 유역에서는 이렇게 항아리로 관을 만든 무덤이 특히 많이 나옵니다.\n다른 지역에서는 흔치 않아요. 저 두 개를 직접 보고 오세요.",
+      "complete": "네, 관이에요. 사람을 눕혀 묻은 관. 놀랍죠?"
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "interact",
+        "target": "ongan-exhibit",
+        "label": "옹관 살펴보기",
+        "count": 2
+      },
+      {
+        "id": "o2",
+        "kind": "dialogue",
+        "target": "npc-researcher-explain",
+        "label": "연구원의 설명 듣기"
+      }
+    ],
+    "rewards": {
+      "xp": 250,
+      "items": [],
+      "codex": [
+        "bokamri-ongan-burial"
+      ],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 고대 국가의 형성",
+      "concepts": [
+        "옹관묘",
+        "매장 의례",
+        "영산강 유역"
+      ]
+    }
+  },
+  {
+    "id": "bokamri-03-golden-shoe",
+    "site": "bokamri",
+    "title": "흙 속에서 반짝이는 것",
+    "type": "EXCAVATE",
+    "requiredLevel": 3,
+    "prerequisites": [
+      "bokamri-02-jar-coffin"
+    ],
+    "giver": { "npc": "npc-explorer", "marker": "!" },
+    "turnIn": { "npc": "npc-explorer", "marker": "?" },
+    "dialogue": {
+      "offer": "어서 오렴! 이곳은 3세기부터 7세기까지, 수백 년에 걸쳐 무덤을 계속 쌓아 올려 만든 사적 제404호 나주 복암리 고분군이란다.\n하나의 큰 무덤 안에 옹관묘와 석실묘 같은 매장시설이 무려 41기나 층층이 모여 있어서, 사람들은 이곳을 '아파트식 고분'이라고 부르지!\n특히 96호 돌방무덤 아래에서는 엄청난 유물이 나왔단다. 화려한 거북등무늬에, 세계에서 유일하게 물고기 모양 장식이 달린 금동신발이지!\n자, 이제 고분 속에 숨겨진 금동신발과 유물들을 조심조심 발굴해 볼까?",
+      "progress": "아직 발굴이 끝나지 않았구나. 저기 96호 발굴 구역에서 조심조심 흙을 털어 보렴.",
+      "complete": "정말 대단하구나! 금동신발부터 세잎무늬 고리자루칼까지, 전부 네 손으로 찾아냈어. 너는 이제 진짜 고고학자란다!"
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "puzzle",
+        "target": "puzzle-golden-shoe-dig",
+        "label": "96호 돌방무덤 발굴하기"
+      }
+    ],
+    "rewards": {
+      "xp": 350,
+      "items": ["item-golden-shoe-badge"],
+      "codex": ["bokamri-apartment-tomb", "relic-golden-shoe", "item-golden-shoe-badge"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 고대 국가의 형성",
+      "concepts": [
+        "아파트식 고분",
+        "금동신발",
+        "고고학 발굴"
+      ]
+    }
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "id": "bitgaram-01-observatory",
+    "site": "bitgaram",
+    "title": "전망대에서 본 빛가람동",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-bitgaram-guide", "marker": "!" },
+    "turnIn": { "npc": "npc-bitgaram-guide", "marker": "?" },
+    "dialogue": {
+      "offer": "여기가 빛가람 호수공원 전망대야. 39.6m 높이에서 빛가람동을 한눈에 볼 수 있지. 한번 올라가 보겠니?",
+      "progress": "전망대 안내판의 문제부터 풀어보렴.",
+      "complete": "그래, 저게 다 빛가람동이란다. 논밭이던 자리에 새로 계획해서 지은 동네야."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-bitgaram-observatory", "label": "전망대 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 80,
+      "items": ["item-bitgaram-telescope"],
+      "codex": ["item-bitgaram-telescope"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 4-1 · 우리 지역의 공공기관과 시설",
+      "concepts": ["혁신도시", "빛가람동", "지역 계획"]
+    }
+  },
+  {
+    "id": "bitgaram-02-kepco",
+    "site": "bitgaram",
+    "title": "스마트 그리드 전력망 연결하기",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-kepco-staff", "marker": "!" },
+    "turnIn": { "npc": "npc-kepco-staff", "marker": "?" },
+    "dialogue": {
+      "offer": "안녕하세요, 저는 한국전력공사에서 일해요. 대한민국 전기를 관리하는 곳이 바로 여기 빛가람동에 있답니다. 문제 하나 풀어볼래요?",
+      "progress": "안내판의 문제부터 풀어보렴.",
+      "complete": "정답이에요! 전기를 아껴 쓰고 남는 전력을 저장하는 똑똑한 전력망, 그게 스마트 그리드예요."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-bitgaram-kepco", "label": "한전 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 80,
+      "items": ["item-smart-grid-core"],
+      "codex": ["item-smart-grid-core"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 4-1 · 지역의 산업과 공공기관",
+      "concepts": ["한국전력공사", "스마트 그리드", "에너지 산업"]
+    }
+  },
+  {
+    "id": "bitgaram-03-kentech",
+    "site": "bitgaram",
+    "title": "청정 수소 에너지를 완성하라!",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-kentech-researcher", "marker": "!" },
+    "turnIn": { "npc": "npc-kentech-researcher", "marker": "?" },
+    "dialogue": {
+      "offer": "여기는 KENTECH, 한국에너지공과대학교예요. 미래 에너지를 연구하는 세계에서 하나뿐인 대학이죠. 문제를 풀어볼래요?",
+      "progress": "안내판의 문제부터 풀어보렴.",
+      "complete": "맞아요! 물을 전기분해해서 얻는 수소는 태우거나 전기를 만들 때 물만 남기는 깨끗한 에너지예요."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-bitgaram-kentech", "label": "KENTECH 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 80,
+      "items": ["item-kentech-card"],
+      "codex": ["item-kentech-card"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "과학 6-2 · 에너지와 생활",
+      "concepts": ["수소 에너지", "신재생 에너지", "물의 전기분해"]
+    }
+  },
+  {
+    "id": "bitgaram-04-kpx",
+    "site": "bitgaram",
+    "title": "실시간 전력 균형 맞추기",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-kpx-operator", "marker": "!" },
+    "turnIn": { "npc": "npc-kpx-operator", "marker": "?" },
+    "dialogue": {
+      "offer": "여기는 전력거래소예요. 대한민국 전기가 남거나 모자라지 않도록 24시간 지켜보는 곳이죠. 문제 하나 풀어볼래요?",
+      "progress": "안내판의 문제부터 풀어보렴.",
+      "complete": "맞아요! 전기는 저장하기 어려워서, 만드는 양과 쓰는 양을 실시간으로 딱 맞춰야 해요."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-bitgaram-kpx", "label": "전력거래소 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 80,
+      "items": ["item-kpx-badge"],
+      "codex": ["item-kpx-badge"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 4-1 · 지역의 산업과 공공기관",
+      "concepts": ["전력거래소", "전력 수급 균형", "에너지 산업"]
+    }
+  },
+  {
+    "id": "bitgaram-05-kocca",
+    "site": "bitgaram",
+    "title": "나주 유산으로 K-콘텐츠 만들기",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-kocca-creator", "marker": "!" },
+    "turnIn": { "npc": "npc-kocca-creator", "marker": "?" },
+    "dialogue": {
+      "offer": "여기는 한국콘텐츠진흥원이에요. 영화, 게임, 웹툰 같은 K-콘텐츠를 만드는 사람들을 도와주는 곳이죠. 문제 풀어볼래요?",
+      "progress": "안내판의 문제부터 풀어보렴.",
+      "complete": "맞아요! 나주의 옛이야기도 잘 만들면 멋진 게임이나 캐릭터가 될 수 있어요."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-bitgaram-kocca", "label": "KOCCA 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 80,
+      "items": ["item-kocca-pen"],
+      "codex": ["item-kocca-pen"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 4-1 · 지역의 산업과 공공기관",
+      "concepts": ["한국콘텐츠진흥원", "문화콘텐츠산업", "K-콘텐츠"]
+    }
+  },
+  {
+    "id": "bitgaram-06-smart-life",
+    "site": "bitgaram",
+    "title": "탄소중립 생활 실천하기",
+    "type": "INTERPRET",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-smart-life-coordinator", "marker": "!" },
+    "turnIn": { "npc": "npc-smart-life-coordinator", "marker": "?" },
+    "dialogue": {
+      "offer": "여기는 스마트 라이프 센터예요. 빛가람동 사람들이 탄소중립 생활을 실천하도록 돕는 곳이죠. 문제 풀어볼래요?",
+      "progress": "안내판의 문제부터 풀어보렴.",
+      "complete": "맞아요! 가까운 거리는 걷거나 대중교통을 타는 것부터가 탄소중립의 시작이에요."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-bitgaram-smart-life", "label": "스마트 라이프 센터 안내판 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 80,
+      "items": ["item-carbon-tumbler"],
+      "codex": ["item-carbon-tumbler"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 6-2 · 지속가능한 지구촌",
+      "concepts": ["탄소중립", "기후변화 대응", "스마트시티"]
+    }
+  }
+]
