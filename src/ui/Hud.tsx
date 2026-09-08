@@ -54,7 +54,8 @@ export function Hud() {
         </div>
         {items.length > 0 && (
           <div style={itemRow}>
-            {items.map((i) => (
+            {/* 최근 획득한 5개만 — 패널이 끝없이 늘어나지 않도록 */}
+            {items.slice(-5).map((i) => (
               <span key={i} style={itemChip}>
                 {ITEM_ICONS[i] ?? '🔧'} {ITEM_NAMES[i] ?? i}
               </span>
