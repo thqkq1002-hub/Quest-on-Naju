@@ -18,6 +18,7 @@ export type SiteId =
   | 'yeongsanpo'
   | 'najueupseong'
   | 'ddeuldeulgang'
+  | 'jeongryeolsa'
 
 export type QuestType =
   | 'OBSERVE' // 관찰 — 지정 지점에서 대상을 살펴본다

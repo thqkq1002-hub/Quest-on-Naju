@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import type { Group } from 'three'
-import { QuestMarker } from '@/game/quest/QuestMarker'
+import { QuestMarker, type MarkerKind } from '@/game/quest/QuestMarker'
 import { playerPos } from '@/game/player/Player'
 import { addTarget } from '@/game/world/interaction'
 import { groundAt } from '@/game/world/terrain'
@@ -39,6 +39,10 @@ export function QuestNpc({
    * 채워 넣습니다.
    */
   activeLine,
+  /** 평상시 대사(idle)가 끝났을 때 실행할 동작 — 퀘스트가 아닌 일회성 연출용 탈출구입니다 */
+  onIdleDialogueEnd,
+  /** 자동 계산 대신 강제로 띄울 머리 위 표시 — 퀘스트가 없는 NPC에도 눈에 띄는 신호를 줄 때 씁니다 */
+  forceMarker,
   children,
 }: {
   id: string
@@ -49,6 +53,8 @@ export function QuestNpc({
   turnsIn?: string[]
   idle?: string
   activeLine?: string
+  onIdleDialogueEnd?: () => void
+  forceMarker?: MarkerKind
   children: ReactNode
 }) {
   const root = useRef<Group>(null)
@@ -120,7 +126,7 @@ export function QuestNpc({
       return
     }
 
-    s.showDialogue(say(idle))
+    s.showDialogue(say(idle), onIdleDialogueEnd)
   }
 
   // 머리 위 표시 — 보고할 게 있으면 `?`, 새 퀘스트가 있으면 `!`
@@ -137,9 +143,15 @@ export function QuestNpc({
     <group ref={root} position={[x, y, z]}>
       {children}
 
-      {readyHere && <QuestMarker y={2.9} kind="turnIn" />}
-      {!readyHere && offerHere && <QuestMarker y={2.9} kind="offer" />}
-      {!readyHere && !offerHere && lockedHere && <QuestMarker y={2.9} kind="locked" />}
+      {forceMarker ? (
+        <QuestMarker y={2.9} kind={forceMarker} />
+      ) : (
+        <>
+          {readyHere && <QuestMarker y={2.9} kind="turnIn" />}
+          {!readyHere && offerHere && <QuestMarker y={2.9} kind="offer" />}
+          {!readyHere && !offerHere && lockedHere && <QuestMarker y={2.9} kind="locked" />}
+        </>
+      )}
 
       {/* 상호작용 범위 표시 — 가까이 갔을 때만 */}
       {inRange && (

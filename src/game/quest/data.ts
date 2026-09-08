@@ -14,6 +14,7 @@ import najustationQuests from '@/content/sites/najustation.quests.json'
 import yeongsanpoQuests from '@/content/sites/yeongsanpo.quests.json'
 import najueupseongQuests from '@/content/sites/najueupseong.quests.json'
 import ddeuldeulgangQuests from '@/content/sites/ddeuldeulgang.quests.json'
+import jeongryeolsaQuests from '@/content/sites/jeongryeolsa.quests.json'
 
 export const QUESTS: readonly Quest[] = [
   ...(dasiQuests as Quest[]),
@@ -24,6 +25,7 @@ export const QUESTS: readonly Quest[] = [
   ...(yeongsanpoQuests as Quest[]),
   ...(najueupseongQuests as Quest[]),
   ...(ddeuldeulgangQuests as Quest[]),
+  ...(jeongryeolsaQuests as Quest[]),
 ]
 
 const byId = new Map(QUESTS.map((q) => [q.id, q]))
@@ -75,6 +77,9 @@ export const CODEX_NAMES: Record<string, string> = {
   'item-naju-gomtang': '나주곰탕',
   'ddeuldeulgang-songbi': '안성현 선생 노래비',
   'item-ansunghyeon-songbook': '안성현 선생의 노래책',
+  'jeongryeolsa-exhibit': '정렬사 유물전시관',
+  'jeongryeolsa-shrine': '정렬사 충절 5위',
+  'item-uibyeong-torch': '의병의 횃불',
 }
 
 export const ITEM_NAMES: Record<string, string> = {
@@ -84,6 +89,7 @@ export const ITEM_NAMES: Record<string, string> = {
   'item-guardian-token': '나주읍성 수호대장 마패',
   'item-naju-gomtang': '나주곰탕',
   'item-ansunghyeon-songbook': '안성현 선생의 노래책',
+  'item-uibyeong-torch': '의병의 횃불',
   'item-golden-pear': '황금 나주배',
   'item-bitgaram-telescope': '빛가람의 눈 망원경',
   'item-smart-grid-core': '스마트 그리드 코어',
@@ -109,6 +115,7 @@ export const ITEM_ICONS: Record<string, string> = {
   'item-guardian-token': '🏯',
   'item-naju-gomtang': '🍲',
   'item-ansunghyeon-songbook': '🎼',
+  'item-uibyeong-torch': '🔥',
   'item-golden-pear': '🍐',
   'item-bitgaram-telescope': '🔭',
   'item-smart-grid-core': '⚡',

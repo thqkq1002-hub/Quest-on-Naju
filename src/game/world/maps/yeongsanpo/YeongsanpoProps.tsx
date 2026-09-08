@@ -1,6 +1,9 @@
-import { Instance, Instances } from '@react-three/drei'
+import { Html, Instance, Instances } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { useRef } from 'react'
+import type { Group } from 'three'
 import { PALETTE } from '@/lib/palette'
-import { LAYOUT, RIVER, STREET_TREES } from './layout'
+import { BOAT_ROUTE, LAYOUT, RIVER, STREET_TREES } from './layout'
 
 /**
  * 영산포 조형물 — 근대문화유산 거리 + 홍어거리.
@@ -27,6 +30,123 @@ export function River() {
         <planeGeometry args={[width, depth * 0.4]} />
         <meshLambertMaterial color={PALETTE.riverDark} />
       </mesh>
+    </group>
+  )
+}
+
+/**
+ * 나루터 — 문학관에서 강가로 내려가는 나무 선착장. 흑산도 홍어도,
+ * 영산강 수운도 결국 이 자리에서 배를 내리고 실었습니다.
+ * 강이 동서로 흐르는 영산포에서는 나루터가 남북으로 뻗어 강 안쪽까지
+ * 걸칩니다 — 다시면 나루터(강이 남북으로 흐름)와는 축이 90도 다릅니다.
+ */
+export function Wharf() {
+  const { x: px, nearZ, farZ, w: width } = LAYOUT.wharf
+  const length = Math.abs(nearZ - farZ)
+  const cz = (nearZ + farZ) / 2
+
+  return (
+    <group position={[px, 0, cz]}>
+      {/* 나무 갑판 */}
+      <mesh position={[0, 0.14, 0]} receiveShadow castShadow>
+        <boxGeometry args={[width, 0.14, length]} />
+        <meshLambertMaterial color={PALETTE.trunk} flatShading />
+      </mesh>
+      {/* 널빤지 이음매 — 길이 방향 줄무늬로 암시 */}
+      {[-4, -1.3, 1.3, 4].map((dx) => (
+        <mesh key={dx} position={[dx, 0.22, 0]}>
+          <boxGeometry args={[0.12, 0.02, length - 0.4]} />
+          <meshLambertMaterial color={PALETTE.boatHullDark} flatShading />
+        </mesh>
+      ))}
+      {/* 계류주 — 배를 매어 두는 기둥 4개 */}
+      {[
+        [width / 2 - 1.2, length / 2 - 1.2],
+        [-(width / 2 - 1.2), length / 2 - 1.2],
+        [width / 2 - 1.2, -(length / 2 - 1.2)],
+        [-(width / 2 - 1.2), -(length / 2 - 1.2)],
+      ].map(([dx, dz], i) => (
+        <mesh key={i} position={[dx, 0.55, dz]} castShadow>
+          <cylinderGeometry args={[0.13, 0.15, 0.9, 6]} />
+          <meshLambertMaterial color={PALETTE.boatHullDark} flatShading />
+        </mesh>
+      ))}
+      <Html position={[0, 0.5, length / 2 + 1.6]} center distanceFactor={30} zIndexRange={[10, 0]}>
+        <div
+          style={{
+            whiteSpace: 'nowrap',
+            color: '#243038',
+            fontSize: 22,
+            fontWeight: 700,
+            textShadow: '0 1px 6px rgba(255,255,255,.75)',
+            pointerEvents: 'none',
+          }}
+        >
+          나루터
+        </div>
+      </Html>
+    </group>
+  )
+}
+
+/**
+ * 황포돛배 — 영산강 뱃길을 오가던 전통 배. 영산포는 실제 이 뱃길의
+ * 종착 나루였던 곳이라, 강 위를 동서로 천천히 왕복합니다.
+ */
+export function HwangpoBoat() {
+  const group = useRef<Group>(null)
+  const sail = useRef<Group>(null)
+  const bandZ = (RIVER.zFrom + RIVER.zTo) / 2
+
+  useFrame(({ clock }) => {
+    const g = group.current
+    if (!g) return
+    const t = clock.elapsedTime
+    const { xFrom, xTo, period } = BOAT_ROUTE
+    const mid = (xFrom + xTo) / 2
+    const half = (xTo - xFrom) / 2
+    const phase = (t / period) * Math.PI * 2
+    g.position.set(mid + Math.sin(phase) * half, 0.15 + Math.sin(t * 1.4) * 0.06, bandZ)
+    g.rotation.y = (Math.cos(phase) < 0 ? Math.PI : 0) + Math.PI / 2
+    if (sail.current) sail.current.rotation.z = Math.sin(t * 0.9) * 0.05
+  })
+
+  return (
+    <group ref={group}>
+      {/* 선체 — 긴 축이 이동 방향(X)과 나란하도록 90도 돌려 둡니다 */}
+      <mesh position={[0, 0.5, 0]} castShadow>
+        <boxGeometry args={[2.4, 1, 8]} />
+        <meshLambertMaterial color={PALETTE.boatHull} flatShading />
+      </mesh>
+      <mesh position={[0, 0.35, 0]}>
+        <boxGeometry args={[2.7, 0.3, 8.3]} />
+        <meshLambertMaterial color={PALETTE.boatHullDark} flatShading />
+      </mesh>
+      {/* 이물 · 고물 */}
+      {[-1, 1].map((side) => (
+        <mesh key={side} position={[0, 0.85, side * 4.3]} rotation={[side * 0.5, 0, 0]} castShadow>
+          <boxGeometry args={[2.2, 0.7, 1.4]} />
+          <meshLambertMaterial color={PALETTE.boatHull} flatShading />
+        </mesh>
+      ))}
+      {/* 돛대 */}
+      <mesh position={[0, 3, -0.5]} castShadow>
+        <cylinderGeometry args={[0.08, 0.1, 5, 6]} />
+        <meshLambertMaterial color={PALETTE.trunk} flatShading />
+      </mesh>
+      {/* 돛 — 황포(黃布) */}
+      <group ref={sail} position={[0, 3.6, -0.5]}>
+        <mesh position={[0, 0, 0.05]} castShadow>
+          <planeGeometry args={[2.4, 3]} />
+          <meshLambertMaterial color={PALETTE.sail} side={2} />
+        </mesh>
+        {[0.9, 0, -0.9].map((y) => (
+          <mesh key={y} position={[0, y, 0.07]}>
+            <boxGeometry args={[2.4, 0.08, 0.02]} />
+            <meshLambertMaterial color={PALETTE.sailDark} flatShading />
+          </mesh>
+        ))}
+      </group>
     </group>
   )
 }

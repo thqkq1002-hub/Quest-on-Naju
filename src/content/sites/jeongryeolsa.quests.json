@@ -1,0 +1,59 @@
+[
+  {
+    "id": "jeongryeolsa-00-exhibit",
+    "site": "jeongryeolsa",
+    "title": "충절의 첫걸음",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": [],
+    "giver": { "npc": "npc-kimcheonil", "marker": "!" },
+    "turnIn": { "npc": "npc-kimcheonil", "marker": "?" },
+    "dialogue": {
+      "offer": "반갑네! 나는 임진왜란이 일어났을 때 이곳 나주 금성관 망화루 앞에서 호남 최초로 의병을 일으킨 김천일이라네.\n나라가 위기에 처했을 때 나와 내 아들, 그리고 뜻을 함께한 의병들이 나주에서 힘을 모아 나라와 백성을 지키기 위해 일어섰지!\n나주 정렬사는 우리 의병들의 숭고한 뜻과 구국 정신을 기리기 위해 세워진 사당이란다.",
+      "progress": "아직 유물전시관을 살펴보지 않았구나. 저기 들러 유품과 기록을 읽어 보렴.",
+      "complete": "그래, 이제 우리 의병들이 무엇을 위해 싸웠는지 알겠지."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "interact", "target": "info-exhibit", "label": "유물전시관 살펴보기" }
+    ],
+    "rewards": {
+      "xp": 150,
+      "items": [],
+      "codex": ["jeongryeolsa-exhibit"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["의병", "임진왜란", "구국 정신"]
+    }
+  },
+  {
+    "id": "jeongryeolsa-01-torch",
+    "site": "jeongryeolsa",
+    "title": "의병의 불꽃",
+    "type": "COLLECT",
+    "requiredLevel": 1,
+    "prerequisites": ["jeongryeolsa-00-exhibit"],
+    "giver": { "npc": "npc-kimcheonil", "marker": "!" },
+    "turnIn": { "npc": "npc-kimcheonil", "marker": "?" },
+    "dialogue": {
+      "offer": "자, 이제 나와 함께 나라를 구하기 위한 의병 깃발을 함께 들고 의병 훈련을 시작해 보겠나?",
+      "progress": "아직 의병 훈련을 마치지 못했구나. 모닥불 앞에서 다시 도전해 보렴.",
+      "complete": "장하다! 그대야말로 진짜 의병일세. 나라를 지키려는 마음, 결코 잊지 말게나."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "interact", "target": "info-shrine", "label": "사당 위패 살펴보기" },
+      { "id": "o2", "kind": "puzzle", "target": "puzzle-uibyeong-torch", "label": "의병 훈련하기" }
+    ],
+    "rewards": {
+      "xp": 280,
+      "items": ["item-uibyeong-torch"],
+      "codex": ["jeongryeolsa-shrine", "item-uibyeong-torch"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["정렬사", "충절 5위", "김천일"]
+    }
+  }
+]

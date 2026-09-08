@@ -10,7 +10,7 @@ import { QuestNpc } from '../Npc'
 import { Interactable } from '../Interactable'
 import { BoatmanBody, ElderBody, PrincipalBody, StationmasterBody, TeacherBody } from '../bodies'
 import { setTerrain } from '../terrain'
-import { useGameStore } from '@/store/gameStore'
+import { useGameStore, QUESTS } from '@/store/gameStore'
 import { BOUNDS, COLLIDERS, LAYOUT, ORCHARD, STATION } from './dasi-school/layout'
 
 /**
@@ -36,6 +36,8 @@ export function DasiSchoolField({ shadows }: { shadows: boolean }) {
   const active = useGameStore((s) => s.active)
   const completed = useGameStore((s) => s.completedQuests)
   const pearQuestGiven = 'dasi-01-pear-quiz' in active || completed.includes('dasi-01-pear-quiz')
+  // 「나주 로컬 익스플로러」의 모든 퀘스트를 마쳤는지 — 교장선생님이 수료증을 내줄 때 씁니다
+  const allQuestsDone = QUESTS.every((q) => completed.includes(q.id))
 
   return (
     <>
@@ -175,9 +177,14 @@ export function DasiSchoolField({ shadows }: { shadows: boolean }) {
         x={LAYOUT.principal.x}
         z={LAYOUT.principal.z}
         idle={
-          '어서 오렴, 우리 학교에 온 걸 환영한다. 이 학교는 1920년에 문을 연 뒤로 백 년 넘게 이 자리를 지켜왔단다.\n' +
-          '나주에는 배울 것도, 둘러볼 것도 참 많아. 선생님들과 이웃 어르신들 말씀 잘 듣고, 나주 곳곳을 부지런히 다녀 보렴.'
+          allQuestsDone
+            ? '오, 우리 나주 로컬 익스플로러가 돌아왔구나! 나주의 역사와 문화, 생태와 산업까지 구석구석 다녀왔다고 들었다.\n' +
+              '이렇게 훌륭하게 모든 여정을 마쳤으니, 교장선생님이 특별히 수료증을 하나 준비했단다. 자, 받으렴.'
+            : '어서 오렴, 우리 학교에 온 걸 환영한다. 이 학교는 1920년에 문을 연 뒤로 백 년 넘게 이 자리를 지켜왔단다.\n' +
+              '나주에는 배울 것도, 둘러볼 것도 참 많아. 선생님들과 이웃 어르신들 말씀 잘 듣고, 나주 곳곳을 부지런히 다녀 보렴.'
         }
+        onIdleDialogueEnd={allQuestsDone ? () => useGameStore.getState().openCertificate() : undefined}
+        forceMarker={allQuestsDone ? 'turnIn' : undefined}
       >
         <PrincipalBody />
       </QuestNpc>
@@ -186,8 +193,26 @@ export function DasiSchoolField({ shadows }: { shadows: boolean }) {
         name="담임 선생님"
         x={LAYOUT.teacher.x}
         z={LAYOUT.teacher.z}
-        gives={['dasi-00-meet-teacher']}
-        turnsIn={['dasi-00-meet-teacher']}
+        gives={[
+          'dasi-00-meet-teacher',
+          'dasi-guide-02-munpyeong',
+          'dasi-guide-03-najueupseong',
+          'dasi-guide-04-yeongsanpo',
+          'dasi-guide-05-jeongryeolsa',
+          'dasi-guide-06-najustation',
+          'dasi-guide-07-ddeuldeulgang',
+          'dasi-guide-08-bitgaram',
+        ]}
+        turnsIn={[
+          'dasi-00-meet-teacher',
+          'dasi-guide-02-munpyeong',
+          'dasi-guide-03-najueupseong',
+          'dasi-guide-04-yeongsanpo',
+          'dasi-guide-05-jeongryeolsa',
+          'dasi-guide-06-najustation',
+          'dasi-guide-07-ddeuldeulgang',
+          'dasi-guide-08-bitgaram',
+        ]}
         idle="복암리는 지도를 열면 갈 수 있어. 오른쪽 위 「나주 지도」를 눌러 보렴."
       >
         <TeacherBody />

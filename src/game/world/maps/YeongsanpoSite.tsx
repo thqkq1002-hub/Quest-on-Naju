@@ -8,7 +8,15 @@ import { SignPost } from './bokamri/BokamriProps'
 import { setTerrain } from '../terrain'
 import { useGameStore } from '@/store/gameStore'
 import { BOUNDS, COLLIDERS, LAYOUT } from './yeongsanpo/layout'
-import { HistoryGallery, HongeoStreet, LiteratureHall, River, StreetTrees } from './yeongsanpo/YeongsanpoProps'
+import {
+  HistoryGallery,
+  HongeoStreet,
+  HwangpoBoat,
+  LiteratureHall,
+  River,
+  StreetTrees,
+  Wharf,
+} from './yeongsanpo/YeongsanpoProps'
 
 /**
  * 영산포 — 근대문화유산 거리 + 홍어거리.
@@ -69,6 +77,8 @@ export function YeongsanpoSite({ shadows }: { shadows: boolean }) {
       </mesh>
 
       <River />
+      <Wharf />
+      <HwangpoBoat />
       <StreetTrees />
 
       {/* [구역 1] 영산포 역사갤러리 */}

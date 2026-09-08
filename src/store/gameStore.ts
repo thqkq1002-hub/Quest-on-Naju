@@ -75,6 +75,8 @@ interface GameState {
   endingSeen: boolean
   /** 나주역 기념관 방명록 — 이 기기에서 남긴 추모 메시지만 기억합니다 */
   memorialMessages: string[]
+  /** 전 퀘스트 완주 후 교장선생님이 보여주는 탐험 수료증 */
+  certificate: boolean
 
   gainXp: (amount: number) => void
   showDialogue: (lines: DialogueLine[], onDone?: () => void) => void
@@ -94,6 +96,8 @@ interface GameState {
   showEnding: () => void
   dismissEnding: () => void
   addMemorialMessage: (text: string) => void
+  openCertificate: () => void
+  closeCertificate: () => void
 }
 
 // ── 저장 ──────────────────────────────────────────────────────────
@@ -164,6 +168,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   ending: false,
   endingSeen: saved?.endingSeen ?? false,
   memorialMessages: saved?.memorialMessages ?? [],
+  certificate: false,
 
   gainXp: (amount) => {
     let { level, xp } = get()
@@ -257,6 +262,9 @@ export const useGameStore = create<GameState>((set, get) => ({
     // 최근 30개만 남깁니다 — 방명록이지 채팅 로그가 아닙니다
     set((s) => ({ memorialMessages: [...s.memorialMessages, trimmed].slice(-30) }))
   },
+
+  openCertificate: () => set({ certificate: true }),
+  closeCertificate: () => set({ certificate: false }),
 }))
 
 // 상태가 바뀔 때마다 저장합니다. 매 프레임 값은 스토어에 없으므로 쌉니다.

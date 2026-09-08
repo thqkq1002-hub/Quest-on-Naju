@@ -33,6 +33,221 @@
     }
   },
   {
+    "id": "dasi-guide-02-munpyeong",
+    "site": "naju-world",
+    "title": "다음 목적지, 나대용 장군 생가",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": [
+      "bokamri-00-arrival",
+      "bokamri-01-first-dig",
+      "bokamri-02-jar-coffin",
+      "bokamri-03-golden-shoe"
+    ],
+    "giver": { "npc": "npc-teacher", "marker": "!" },
+    "turnIn": { "npc": "npc-teacher", "marker": "?" },
+    "dialogue": {
+      "offer": "복암리 고분군을 다 둘러보고 왔구나! 어땠니, 1500년이나 된 무덤이 우리 동네에 있다니 신기하지 않니?\n그럼 이번엔 문평면으로 가보자. 거기엔 나대용 장군 생가가 있단다.\n임진왜란 때 이순신 장군과 함께 거북선을 만든 분이야. 소충사라는 사당도 함께 있지.\n한번 가볼래?",
+      "progress": "나대용 장군 생가에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "좋다. 오른쪽 위 「나주 지도」를 누르면 문평면으로 갈 수 있어. 잘 다녀오렴."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "dialogue",
+        "target": "npc-teacher-guide-02",
+        "label": "담임 선생님의 이야기 듣기"
+      }
+    ],
+    "rewards": { "xp": 40, "items": [], "codex": [], "title": null },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["우리 지역의 문화유산", "탐구 계획"]
+    }
+  },
+  {
+    "id": "dasi-guide-03-najueupseong",
+    "site": "naju-world",
+    "title": "다음 목적지, 나주읍성",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": [
+      "munpyeong-01-birthplace",
+      "munpyeong-02-sochungsa",
+      "munpyeong-03-shipyard",
+      "munpyeong-04-changseon"
+    ],
+    "giver": { "npc": "npc-teacher", "marker": "!" },
+    "turnIn": { "npc": "npc-teacher", "marker": "?" },
+    "dialogue": {
+      "offer": "나대용 장군 생가까지 다 살펴보고 왔구나! 거북선 이야기는 재미있었니?\n이번엔 나주 구도심에 있는 나주읍성으로 가보자. 옛날엔 '작은 서울'이라고 불릴 만큼 호남의 중심지였단다.\n금성관이랑 남고문·동점문·서성문·북망문, 4대문이 아직 남아 있어.\n한번 가볼래?",
+      "progress": "나주읍성에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "좋다. 오른쪽 위 「나주 지도」를 누르면 나주읍성으로 갈 수 있어. 잘 다녀오렴."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "dialogue",
+        "target": "npc-teacher-guide-03",
+        "label": "담임 선생님의 이야기 듣기"
+      }
+    ],
+    "rewards": { "xp": 40, "items": [], "codex": [], "title": null },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["우리 지역의 문화유산", "탐구 계획"]
+    }
+  },
+  {
+    "id": "dasi-guide-04-yeongsanpo",
+    "site": "naju-world",
+    "title": "다음 목적지, 영산포",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": [
+      "najueupseong-00-geumseonggwan",
+      "najueupseong-01-four-gates",
+      "najueupseong-02-gomtang"
+    ],
+    "giver": { "npc": "npc-teacher", "marker": "!" },
+    "turnIn": { "npc": "npc-teacher", "marker": "?" },
+    "dialogue": {
+      "offer": "나주읍성 4대문을 다 둘러보고, 곰탕까지 먹고 왔구나!\n이번엔 영산강을 따라 배가 드나들던 물류의 중심지, 영산포로 가보자.\n근대 역사 갤러리와 문학관도 있고, 홍어 거리도 유명하단다.\n한번 가볼래?",
+      "progress": "영산포에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "좋다. 오른쪽 위 「나주 지도」를 누르면 영산포로 갈 수 있어. 잘 다녀오렴."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "dialogue",
+        "target": "npc-teacher-guide-04",
+        "label": "담임 선생님의 이야기 듣기"
+      }
+    ],
+    "rewards": { "xp": 40, "items": [], "codex": [], "title": null },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["우리 지역의 문화유산", "탐구 계획"]
+    }
+  },
+  {
+    "id": "dasi-guide-05-jeongryeolsa",
+    "site": "naju-world",
+    "title": "다음 목적지, 정렬사",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": ["yeongsanpo-01-heritage", "yeongsanpo-02-hongeo"],
+    "giver": { "npc": "npc-teacher", "marker": "!" },
+    "turnIn": { "npc": "npc-teacher", "marker": "?" },
+    "dialogue": {
+      "offer": "영산포 근대 거리랑 홍어 거리까지 다 구경하고 왔구나!\n이번엔 대호동에 있는 정렬사로 가보자. 임진왜란 때 호남 최초로 의병을 일으킨 김천일 의병장과 충절 5위를 기리는 사당이란다.\n한번 가볼래?",
+      "progress": "정렬사에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "좋다. 오른쪽 위 「나주 지도」를 누르면 정렬사로 갈 수 있어. 잘 다녀오렴."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "dialogue",
+        "target": "npc-teacher-guide-05",
+        "label": "담임 선생님의 이야기 듣기"
+      }
+    ],
+    "rewards": { "xp": 40, "items": [], "codex": [], "title": null },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["우리 지역의 문화유산", "탐구 계획"]
+    }
+  },
+  {
+    "id": "dasi-guide-06-najustation",
+    "site": "naju-world",
+    "title": "다음 목적지, 나주역",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": ["jeongryeolsa-00-exhibit", "jeongryeolsa-01-torch"],
+    "giver": { "npc": "npc-teacher", "marker": "!" },
+    "turnIn": { "npc": "npc-teacher", "marker": "?" },
+    "dialogue": {
+      "offer": "정렬사에서 김천일 의병장 이야기까지 잘 듣고 왔구나!\n이번엔 나주역으로 가보자. 1929년 10월 30일, 광주학생독립운동이 시작된 바로 그 승강장이 있는 곳이야.\n슬픈 이야기지만 꼭 기억해야 할 역사란다. 한번 가볼래?",
+      "progress": "나주역에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "좋다. 오른쪽 위 「나주 지도」를 누르면 나주역으로 갈 수 있어. 기차를 타고 가는 거란다."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "dialogue",
+        "target": "npc-teacher-guide-06",
+        "label": "담임 선생님의 이야기 듣기"
+      }
+    ],
+    "rewards": { "xp": 40, "items": [], "codex": [], "title": null },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["우리 지역의 문화유산", "탐구 계획"]
+    }
+  },
+  {
+    "id": "dasi-guide-07-ddeuldeulgang",
+    "site": "naju-world",
+    "title": "다음 목적지, 드들강 솔밭유원지",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": [
+      "najustation-01-plaza",
+      "najustation-02-waiting-room",
+      "najustation-03-platform",
+      "najustation-04-memorial"
+    ],
+    "giver": { "npc": "npc-teacher", "marker": "!" },
+    "turnIn": { "npc": "npc-teacher", "marker": "?" },
+    "dialogue": {
+      "offer": "나주역에서 있었던 일을 잘 기억해 두었구나. 오늘의 자유와 평화가 그냥 온 게 아니란다.\n이번엔 조금 밝은 곳으로 가보자. 드들강변의 소나무 숲, 드들강 솔밭유원지야.\n작곡가 안성현 선생의 노래비도 있단다. 한번 가볼래?",
+      "progress": "드들강 솔밭유원지에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "좋다. 오른쪽 위 「나주 지도」를 누르면 드들강으로 갈 수 있어. 기차를 타고 가는 거란다."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "dialogue",
+        "target": "npc-teacher-guide-07",
+        "label": "담임 선생님의 이야기 듣기"
+      }
+    ],
+    "rewards": { "xp": 40, "items": [], "codex": [], "title": null },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["우리 지역의 문화유산", "탐구 계획"]
+    }
+  },
+  {
+    "id": "dasi-guide-08-bitgaram",
+    "site": "naju-world",
+    "title": "다음 목적지, 빛가람동",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": ["ddeuldeulgang-01-melody"],
+    "giver": { "npc": "npc-teacher", "marker": "!" },
+    "turnIn": { "npc": "npc-teacher", "marker": "?" },
+    "dialogue": {
+      "offer": "드들강 노래비까지 다 보고 왔구나! 이제 마지막 목적지란다.\n이번엔 논밭이던 자리에 새로 지어진 혁신도시, 빛가람동으로 가보자. 한국전력공사, KENTECH 같은 곳도 있어.\n우리 나주의 과거와 오늘을 다 둘러보는 셈이야. 한번 가볼래?",
+      "progress": "빛가람동에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "좋다. 오른쪽 위 「나주 지도」를 누르면 빛가람동으로 갈 수 있어. 잘 다녀오렴."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "dialogue",
+        "target": "npc-teacher-guide-08",
+        "label": "담임 선생님의 이야기 듣기"
+      }
+    ],
+    "rewards": { "xp": 40, "items": [], "codex": [], "title": null },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["우리 지역의 문화유산", "탐구 계획"]
+    }
+  },
+  {
     "id": "dasi-01-pear-quiz",
     "site": "naju-world",
     "title": "배나무 밭 체험",

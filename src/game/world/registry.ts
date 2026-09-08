@@ -16,6 +16,7 @@ export type MapId =
   | 'yeongsanpo'
   | 'najueupseong'
   | 'ddeuldeulgang'
+  | 'jeongryeolsa'
 
 /** 씬 컴포넌트가 받는 것은 이것 하나뿐입니다 (맵마다 지켜야 할 계약) */
 export interface SceneProps {
@@ -70,9 +71,7 @@ export const MAPS: Record<MapId, MapDef> = {
     scene: lazy(() =>
       import('./maps/BokamriSite').then((m) => ({ default: m.BokamriSite })),
     ),
-    // 검수 편의상 지금은 항상 열어 둡니다. 원래 조건은
-    // { type: 'quest', id: 'dasi-00-meet-teacher' } — 되돌리려면 이 값으로.
-    unlock: { type: 'always' },
+    unlock: { type: 'quest', id: 'dasi-00-meet-teacher' },
     worldMapPos: [0.42, 0.38],
   },
   bitgaram: {
@@ -84,23 +83,19 @@ export const MAPS: Record<MapId, MapDef> = {
     scene: lazy(() =>
       import('./maps/BitgaramSite').then((m) => ({ default: m.BitgaramSite })),
     ),
-    // 검수 편의상 지금은 항상 열어 둡니다. 원래 조건은
-    // { type: 'quest', id: 'bokamri-02-jar-coffin' } — 되돌리려면 이 값으로.
-    unlock: { type: 'always' },
+    unlock: { type: 'quest', id: 'dasi-guide-08-bitgaram' },
     worldMapPos: [0.58, 0.7],
   },
   munpyeong: {
     id: 'munpyeong',
-    name: '문평면',
+    name: '나대용장군 생가',
     region: '문평면',
     era: '조선',
     blurb: '무민공 나대용 장군의 고향. 생가와 소충사, 거북선 이야기가 있습니다.',
     scene: lazy(() =>
       import('./maps/MunpyeongSite').then((m) => ({ default: m.MunpyeongSite })),
     ),
-    // 검수 편의상 지금은 항상 열어 둡니다. 원래 조건은
-    // { type: 'quest', id: 'bokamri-02-jar-coffin' } — 되돌리려면 이 값으로.
-    unlock: { type: 'always' },
+    unlock: { type: 'quest', id: 'dasi-guide-02-munpyeong' },
     worldMapPos: [0.14, 0.15],
   },
   najustation: {
@@ -112,9 +107,7 @@ export const MAPS: Record<MapId, MapDef> = {
     scene: lazy(() =>
       import('./maps/NajuStationSite').then((m) => ({ default: m.NajuStationSite })),
     ),
-    // 검수 편의상 지금은 항상 열어 둡니다. 원래 조건은
-    // { type: 'quest', id: 'bokamri-02-jar-coffin' } — 되돌리려면 이 값으로.
-    unlock: { type: 'always' },
+    unlock: { type: 'quest', id: 'dasi-guide-06-najustation' },
     // 영산강 곡선 위가 아니라, 기찻길(WorldMap.tsx의 RAILWAY) 끝점에 맞춥니다 —
     // 강이 아니라 철길로 이어지는 곳이라는 걸 지도에서도 보여주기 위해서입니다.
     worldMapPos: [0.41, 0.66],
@@ -130,7 +123,7 @@ export const MAPS: Record<MapId, MapDef> = {
     scene: lazy(() =>
       import('./maps/YeongsanpoSite').then((m) => ({ default: m.YeongsanpoSite })),
     ),
-    unlock: { type: 'always' },
+    unlock: { type: 'quest', id: 'dasi-guide-04-yeongsanpo' },
     // 영산강 물길 위 — 실제로 영산포가 강변 나루터 마을이었던 자리입니다
     worldMapPos: [0.5, 0.55],
   },
@@ -143,7 +136,7 @@ export const MAPS: Record<MapId, MapDef> = {
     scene: lazy(() =>
       import('./maps/NajueupseongSite').then((m) => ({ default: m.NajueupseongSite })),
     ),
-    unlock: { type: 'always' },
+    unlock: { type: 'quest', id: 'dasi-guide-03-najueupseong' },
     // 나주읍성은 실제로 나주 구도심 한복판, 영산포보다 조금 북서쪽입니다
     worldMapPos: [0.44, 0.5],
   },
@@ -156,11 +149,24 @@ export const MAPS: Record<MapId, MapDef> = {
     scene: lazy(() =>
       import('./maps/DdeuldeulgangSite').then((m) => ({ default: m.DdeuldeulgangSite })),
     ),
-    unlock: { type: 'always' },
+    unlock: { type: 'quest', id: 'dasi-guide-07-ddeuldeulgang' },
     // 지도 북동쪽 — 다시역에서 갈라져 나가는 별도 기찻길 끝점입니다
     worldMapPos: [0.82, 0.12],
     // 다시역에서 기차를 타고 갑니다 — 나주역과 같은 방식입니다
     travelMode: 'train',
+  },
+  jeongryeolsa: {
+    id: 'jeongryeolsa',
+    name: '정렬사',
+    region: '대호동',
+    era: '조선',
+    blurb: '임진왜란 때 호남 최초로 의병을 일으킨 김천일 의병장과 충절 5위를 기리는 사당.',
+    scene: lazy(() =>
+      import('./maps/JeongryeolsaSite').then((m) => ({ default: m.JeongryeolsaSite })),
+    ),
+    unlock: { type: 'quest', id: 'dasi-guide-05-jeongryeolsa' },
+    // 대호동 — 나주읍성 동쪽, 나주 구도심 안입니다
+    worldMapPos: [0.58, 0.42],
   },
 }
 
@@ -169,6 +175,7 @@ export const MAP_ORDER: MapId[] = [
   'bokamri',
   'munpyeong',
   'najueupseong',
+  'jeongryeolsa',
   'najustation',
   'yeongsanpo',
   'ddeuldeulgang',

@@ -14,9 +14,11 @@ import { HongeoComboGame } from '@/ui/HongeoComboGame'
 import { WallStonePuzzle } from '@/ui/WallStonePuzzle'
 import { PineNoteRhythmGame } from '@/ui/PineNoteRhythmGame'
 import { BgmToggle } from '@/ui/BgmToggle'
+import { UibyeongTorchGame } from '@/ui/UibyeongTorchGame'
 import { PearCatchGame } from '@/ui/PearCatchGame'
 import { QuizPuzzle } from '@/ui/QuizPuzzle'
 import { MemorialGuestbook } from '@/ui/MemorialGuestbook'
+import { Certificate } from '@/ui/Certificate'
 import { InventoryButton, InventoryModal } from '@/ui/InventoryModal'
 import { Ending, EndingWatcher } from '@/ui/Ending'
 import { resetCamera } from '@/game/player/camera'
@@ -99,10 +101,12 @@ export default function App() {
         <HongeoComboGame />
         <WallStonePuzzle />
         <PineNoteRhythmGame />
+        <UibyeongTorchGame />
         <BgmToggle />
         <PearCatchGame />
         <QuizPuzzle />
         <MemorialGuestbook />
+        <Certificate />
         <InventoryModal />
         <EndingWatcher />
         <Ending />

@@ -27,6 +27,9 @@ export const BOUNDS = { minX: -66, maxX: 66, minZ: -66, maxZ: 46 }
 /** 영산강 — 거리 북쪽을 동서로 가로지릅니다 */
 export const RIVER = { zFrom: -66, zTo: -44, xFrom: -66, xTo: 66 }
 
+/** 황포돛배가 강 위를 오가는 구간 — 동서로 천천히 왕복합니다 */
+export const BOAT_ROUTE = { xFrom: -55, xTo: 55, period: 46 }
+
 export const LAYOUT = {
   /** 플레이어 시작 지점 — 남쪽 진입로 */
   spawn: { x: 0, z: 22 },
@@ -52,6 +55,12 @@ export const LAYOUT = {
   hongeoTrigger: { x: 38, z: -10 },
   /** 홍어거리 마스코트 "홍이" — 좌판보다 앞쪽, 거리 초입에서 맞아 줍니다 */
   hongiMascot: { x: 30, z: -2 },
+
+  /**
+   * 나루터 — 문학관과 홍어거리 사이, 강가로 걸어 내려가는 자리.
+   * 흑산도 홍어도, 수운 이야기도 결국 이 뱃길에서 시작됩니다.
+   */
+  wharf: { x: 18, nearZ: -44, farZ: -60, w: 14 },
 } as const
 
 /** 거리를 두르는 나무 — 저층부 소나무보다 밝은 활엽수로, 근대 거리 느낌을 냅니다 */

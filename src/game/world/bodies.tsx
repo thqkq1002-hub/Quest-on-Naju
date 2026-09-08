@@ -887,3 +887,61 @@ export function GomtangLadyBody() {
     </>
   )
 }
+
+/** 정렬사 김천일 의병장 — 짙은 갑옷에 붉은 전포, 어깨 장식과 투구, 손엔 칼 */
+export function KimCheonilBody() {
+  return (
+    <>
+      <Legs color="#2b2f38" />
+      {/* 갑옷 몸통 */}
+      <mesh position={[0, 1.16, 0]} castShadow>
+        <boxGeometry args={[0.64, 0.82, 0.36]} />
+        <meshLambertMaterial color="#3a3f4a" flatShading />
+      </mesh>
+      {/* 붉은 전포 자락 — 등 뒤로 늘어뜨린 망토 */}
+      <mesh position={[0, 0.95, -0.22]} castShadow>
+        <boxGeometry args={[0.56, 1.1, 0.1]} />
+        <meshLambertMaterial color={PALETTE.mutedRed} flatShading />
+      </mesh>
+      {/* 갑옷 미늘 줄 — 가로 띠 세 줄 */}
+      {[0.98, 1.16, 1.34].map((y) => (
+        <mesh key={y} position={[0, y, 0.185]}>
+          <boxGeometry args={[0.6, 0.05, 0.02]} />
+          <meshLambertMaterial color="#565f6e" flatShading />
+        </mesh>
+      ))}
+      {/* 어깨 장식 */}
+      {[-1, 1].map((s) => (
+        <mesh key={s} position={[s * 0.36, 1.5, 0]} castShadow>
+          <boxGeometry args={[0.2, 0.16, 0.4]} />
+          <meshLambertMaterial color={PALETTE.dragonGold} flatShading />
+        </mesh>
+      ))}
+      <Arms color="#3a3f4a" />
+      <Head hair="#1c1712" />
+      {/* 투구 */}
+      <mesh position={[0, 2.05, 0]} castShadow>
+        <sphereGeometry args={[0.26, 10, 6, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshLambertMaterial color="#3a3f4a" flatShading />
+      </mesh>
+      <mesh position={[0, 1.97, 0.1]} castShadow>
+        <boxGeometry args={[0.48, 0.06, 0.3]} />
+        <meshLambertMaterial color={PALETTE.dragonGold} flatShading />
+      </mesh>
+      {/* 투구 깃 장식 */}
+      <mesh position={[0, 2.32, -0.05]} rotation={[0.3, 0, 0]} castShadow>
+        <coneGeometry args={[0.05, 0.34, 5]} />
+        <meshLambertMaterial color={PALETTE.mutedRed} flatShading />
+      </mesh>
+      {/* 칼 — 허리에 찬 */}
+      <mesh position={[-0.4, 0.85, 0.05]} rotation={[0, 0, 0.3]} castShadow>
+        <boxGeometry args={[0.08, 0.9, 0.04]} />
+        <meshLambertMaterial color="#8a6f4f" flatShading />
+      </mesh>
+      <mesh position={[-0.36, 1.28, 0.05]} rotation={[0, 0, 0.3]}>
+        <boxGeometry args={[0.2, 0.06, 0.06]} />
+        <meshLambertMaterial color={PALETTE.dragonGold} flatShading />
+      </mesh>
+    </>
+  )
+}
