@@ -57,5 +57,33 @@
       "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
       "concepts": ["나주읍성", "4대문", "성곽 구조"]
     }
+  },
+  {
+    "id": "najueupseong-02-gomtang",
+    "site": "najueupseong",
+    "title": "정든 나주곰탕 한 그릇",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": ["najueupseong-01-four-gates"],
+    "giver": { "npc": "npc-gomtang-lady", "marker": "!" },
+    "turnIn": { "npc": "npc-gomtang-lady", "marker": "?" },
+    "dialogue": {
+      "offer": "어서 오렴, 수호대장! 나주곰탕 한 그릇 하고 가려무나~\n나주곰탕은 예로부터 나주 5일장 장꾼과 길손들의 배를 채워 주던 국밥이란다.\n진하게 우린 사골 국물 대신 양지머리를 맑게 우려내는 게 나주곰탕만의 비법이지. 그래서 국물이 이렇게 맑고 깨끗하단다.\n내가 낸 문제를 하나 맞히면, 따끈한 나주곰탕 한 그릇을 대접하마!",
+      "progress": "저기 팻말 앞에서 문제부터 풀어야 곰탕을 내줄 수 있단다.",
+      "complete": "장하다! 자, 여기 따끈한 나주곰탕 한 그릇일세. 든든하게 먹고 가려무나."
+    },
+    "objectives": [
+      { "id": "o1", "kind": "puzzle", "target": "puzzle-najueupseong-gomtang", "label": "곰탕집 문제 풀기" }
+    ],
+    "rewards": {
+      "xp": 120,
+      "items": ["item-naju-gomtang"],
+      "codex": ["item-naju-gomtang"],
+      "title": null
+    },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["지역 향토음식", "나주곰탕", "5일장"]
+    }
   }
 ]

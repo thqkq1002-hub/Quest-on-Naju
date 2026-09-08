@@ -61,7 +61,6 @@ export function Hud() {
             ))}
           </div>
         )}
-        <div style={learnBadge}>학습내용: 초등 사회 5-2 · 우리 지역의 문화유산</div>
       </div>
 
       {/* 우상단 퀘스트 로그 — 목표와 진행도를 데이터에서 그립니다 */}
@@ -156,14 +155,6 @@ const itemChip: React.CSSProperties = {
   borderRadius: 999,
   background: 'rgba(255,210,74,.18)',
   border: '1px solid rgba(255,210,74,.4)',
-}
-
-const learnBadge: React.CSSProperties = {
-  marginTop: 9,
-  paddingTop: 8,
-  borderTop: '1px solid rgba(255,255,255,.14)',
-  fontSize: 11.5,
-  opacity: 0.8,
 }
 
 const questLog: React.CSSProperties = {

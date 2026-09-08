@@ -170,3 +170,41 @@ export function Geumseonggwan() {
     </group>
   )
 }
+
+/**
+ * 나주곰탕집 — 4대문을 다 지키고 나면 금성관 옆에 열리는 보상 가게.
+ * 처마 아래 붉은 천 간판을 걸고, 문 앞에 김이 오르는 가마솥을 뒀습니다.
+ */
+export function GomtangHouse() {
+  const g = LAYOUT.gomtangHouse
+  return (
+    <group position={[g.x, 0, g.z]}>
+      <mesh position={[0, g.d * 0.28, 0]} castShadow receiveShadow>
+        <boxGeometry args={[g.w, g.d * 0.56, g.d]} />
+        <meshLambertMaterial color={PALETTE.hanokWood} flatShading />
+      </mesh>
+      {/* 통유리 문 */}
+      <mesh position={[0, g.d * 0.22, g.d / 2 + 0.03]}>
+        <boxGeometry args={[g.w * 0.5, g.d * 0.36, 0.05]} />
+        <meshLambertMaterial color={PALETTE.windowGlass} flatShading />
+      </mesh>
+      <TileRoof w={g.w} d={g.d} y={g.d * 0.6} />
+      {/* 처마 아래 걸린 천 간판 — "나주곰탕" */}
+      <mesh position={[0, g.d * 0.44, g.d / 2 + 0.1]} castShadow>
+        <boxGeometry args={[g.w * 0.62, 0.7, 0.06]} />
+        <meshLambertMaterial color={PALETTE.dancheongRed} flatShading />
+      </mesh>
+      {/* 좌판 가마솥 + 김 */}
+      <mesh position={[g.w / 2 + 0.6, 0.5, g.d / 2]} castShadow>
+        <cylinderGeometry args={[0.55, 0.65, 0.5, 10]} />
+        <meshLambertMaterial color="#2b2b2b" flatShading />
+      </mesh>
+      {[0, 1, 2].map((i) => (
+        <mesh key={i} position={[g.w / 2 + 0.55 + (i - 1) * 0.14, 0.95 + i * 0.22, g.d / 2]}>
+          <sphereGeometry args={[0.14 - i * 0.025, 6, 6]} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.45 - i * 0.1} />
+        </mesh>
+      ))}
+    </group>
+  )
+}

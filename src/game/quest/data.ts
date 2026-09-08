@@ -72,6 +72,7 @@ export const CODEX_NAMES: Record<string, string> = {
   'gate-seoseongmun': '서성문·영금문 (서문)',
   'gate-bukmangmun': '북망문 (북문)',
   'item-guardian-token': '나주읍성 수호대장 마패',
+  'item-naju-gomtang': '나주곰탕',
   'ddeuldeulgang-songbi': '안성현 선생 노래비',
   'item-ansunghyeon-songbook': '안성현 선생의 노래책',
 }
@@ -81,6 +82,7 @@ export const ITEM_NAMES: Record<string, string> = {
   'item-golden-shoe-badge': '위대한 고고학자 배지',
   'item-hongeo-samhap': '영산포 홍어삼합',
   'item-guardian-token': '나주읍성 수호대장 마패',
+  'item-naju-gomtang': '나주곰탕',
   'item-ansunghyeon-songbook': '안성현 선생의 노래책',
   'item-golden-pear': '황금 나주배',
   'item-bitgaram-telescope': '빛가람의 눈 망원경',
@@ -105,6 +107,7 @@ export const ITEM_ICONS: Record<string, string> = {
   'item-golden-shoe-badge': '👞',
   'item-hongeo-samhap': '🍽️',
   'item-guardian-token': '🏯',
+  'item-naju-gomtang': '🍲',
   'item-ansunghyeon-songbook': '🎼',
   'item-golden-pear': '🍐',
   'item-bitgaram-telescope': '🔭',

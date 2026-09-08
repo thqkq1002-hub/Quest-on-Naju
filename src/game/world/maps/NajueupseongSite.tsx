@@ -3,11 +3,11 @@ import { PALETTE } from '@/lib/palette'
 import { Player } from '@/game/player/Player'
 import { QuestNpc } from '../Npc'
 import { Interactable } from '../Interactable'
-import { MayorBody } from '../bodies'
+import { GomtangLadyBody, MayorBody } from '../bodies'
 import { setTerrain } from '../terrain'
 import { useGameStore } from '@/store/gameStore'
 import { BOUNDS, COLLIDERS, LAYOUT, gateMarker, type GateId } from './najueupseong/layout'
-import { FortressWall, GateTower, Geumseonggwan } from './najueupseong/NajueupseongProps'
+import { FortressWall, GateTower, Geumseonggwan, GomtangHouse } from './najueupseong/NajueupseongProps'
 
 /**
  * 나주읍성 — 금성관과 남고문·동점문·서성문·북망문 4대문.
@@ -29,10 +29,14 @@ export function NajueupseongSite({ shadows }: { shadows: boolean }) {
   const openPuzzle = useGameStore((s) => s.openPuzzle)
   const active = useGameStore((s) => s.active)
   const completed = useGameStore((s) => s.completedQuests)
+  const items = useGameStore((s) => s.items)
 
   const given = (id: string) => id in active || completed.includes(id)
   const geumseonggwanGiven = given('najueupseong-00-geumseonggwan')
   const gatesGiven = given('najueupseong-01-four-gates')
+  // 4대문을 다 지키고 마패를 받아야 열리는 보상 가게
+  const gomtangOpen = items.includes('item-guardian-token')
+  const gomtangGiven = given('najueupseong-02-gomtang')
 
   return (
     <>
@@ -101,6 +105,53 @@ export function NajueupseongSite({ shadows }: { shadows: boolean }) {
             <meshLambertMaterial color={PALETTE.hanokWood} flatShading />
           </mesh>
         </Interactable>
+      )}
+
+      {/* 나주곰탕집 — 수호대장 마패를 받아야 문을 엽니다 */}
+      {gomtangOpen && (
+        <>
+          <GomtangHouse />
+          <Html
+            position={[LAYOUT.gomtangHouse.x, LAYOUT.gomtangHouse.d * 0.9, LAYOUT.gomtangHouse.z]}
+            center
+            distanceFactor={52}
+            zIndexRange={[10, 0]}
+          >
+            <div style={label}>나주곰탕집</div>
+          </Html>
+          <QuestNpc
+            id="npc-gomtang-lady"
+            name="곰탕집 할머니"
+            x={LAYOUT.gomtangLady.x}
+            z={LAYOUT.gomtangLady.z}
+            gives={['najueupseong-02-gomtang']}
+            turnsIn={['najueupseong-02-gomtang']}
+            idle="따끈한 나주곰탕 잘 먹었지? 또 놀러 오렴~"
+          >
+            <GomtangLadyBody />
+          </QuestNpc>
+          {gomtangGiven && (
+            <Interactable
+              targetId="puzzle-najueupseong-gomtang"
+              kind="interact"
+              once={false}
+              x={LAYOUT.gomtangQuiz.x}
+              z={LAYOUT.gomtangQuiz.z}
+              label="곰탕집 문제 풀기"
+              range={3}
+              onFirst={() => openPuzzle('puzzle-najueupseong-gomtang')}
+            >
+              <mesh position={[0, 0.5, 0]} castShadow>
+                <boxGeometry args={[0.07, 1, 0.07]} />
+                <meshLambertMaterial color={PALETTE.trunk} flatShading />
+              </mesh>
+              <mesh position={[0, 0.98, 0]} castShadow>
+                <boxGeometry args={[0.75, 0.46, 0.05]} />
+                <meshLambertMaterial color={PALETTE.hanokWood} flatShading />
+              </mesh>
+            </Interactable>
+          )}
+        </>
       )}
 
       {/* 4대문 — 이름표 + (퀘스트를 받은 뒤에만) 수문장 문제 표지 */}

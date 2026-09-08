@@ -853,3 +853,37 @@ export function SoliBody() {
     </>
   )
 }
+
+/** 나주읍성 곰탕집 할머니 — 붉은 앞치마에 머리수건, 손엔 국자 */
+export function GomtangLadyBody() {
+  return (
+    <>
+      <Legs color="#5a4a3a" />
+      <mesh position={[0, 1.14, 0]} castShadow>
+        <boxGeometry args={[0.6, 0.8, 0.34]} />
+        <meshLambertMaterial color="#e8dcc4" flatShading />
+      </mesh>
+      {/* 앞치마 */}
+      <mesh position={[0, 1.0, 0.19]}>
+        <boxGeometry args={[0.5, 0.6, 0.03]} />
+        <meshLambertMaterial color={PALETTE.steelRed} flatShading />
+      </mesh>
+      <Arms color="#e8dcc4" />
+      <Head hair="#8a8078" />
+      {/* 머리수건 */}
+      <mesh position={[0, 2.02, 0]} castShadow>
+        <boxGeometry args={[0.46, 0.14, 0.46]} />
+        <meshLambertMaterial color="#e0673c" flatShading />
+      </mesh>
+      {/* 국자 */}
+      <mesh position={[0.42, 1.15, 0.16]} rotation={[0, 0, -0.3]} castShadow>
+        <cylinderGeometry args={[0.02, 0.02, 0.4, 5]} />
+        <meshLambertMaterial color={PALETTE.pineconeBrown} flatShading />
+      </mesh>
+      <mesh position={[0.56, 0.98, 0.16]} castShadow>
+        <sphereGeometry args={[0.09, 8, 6, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshLambertMaterial color="#c8ccd0" flatShading />
+      </mesh>
+    </>
+  )
+}

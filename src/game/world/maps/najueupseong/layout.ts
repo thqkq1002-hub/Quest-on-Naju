@@ -34,6 +34,16 @@ export const LAYOUT = {
   geumseonggwan: { x: 0, z: 0, w: 22, d: 14, h: 8 },
   geumseonggwanInfo: { x: 0, z: 12 },
 
+  /**
+   * 나주곰탕집 — 금성관 동쪽 옆. 수호대장 마패를 얻은 뒤에만 나타나는
+   * 보상성 가게입니다. 나주곰탕은 실제로 나주읍성 5일장 상인·길손을
+   * 먹이던 국밥에서 비롯되었다고 전하는 나주의 대표 향토음식입니다.
+   */
+  gomtangHouse: { x: 17, z: 4, w: 6, d: 5 },
+  gomtangLady: { x: 17, z: 8.5 },
+  /** 곰탕집 문제 팻말 — 할머니 옆 */
+  gomtangQuiz: { x: 20, z: 9.5 },
+
   /** 4대문 — 성곽 네 변의 한가운데 */
   gates: {
     namgomun: { id: 'namgomun', name: '남고문', label: '남고문 (남문)', x: 0, z: WALL_HALF, axis: 'z' as const },
