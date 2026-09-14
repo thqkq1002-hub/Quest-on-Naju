@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import type { Quest } from '@/content/schema'
 import { QUESTS, questById } from '@/game/quest/data'
+import type { MapId } from '@/game/world/registry'
 
 /**
  * 게임 상태.
@@ -70,9 +71,10 @@ interface GameState {
   puzzle: string | null
   /** 탐험 수첩(도감·가방) 열림 여부 */
   inventoryOpen: boolean
-  /** 복암리 완주 엔딩 카드 */
-  ending: boolean
-  endingSeen: boolean
+  /** 현재 화면에 떠 있는 지역 완주 카드 (없으면 null) */
+  siteEnding: MapId | null
+  /** 이미 한 번 보여준 지역 완주 카드 — 다시 안 띄웁니다 */
+  siteEndingsSeen: MapId[]
   /** 나주역 기념관 방명록 — 이 기기에서 남긴 추모 메시지만 기억합니다 */
   memorialMessages: string[]
   /** 전 퀘스트 완주 후 교장선생님이 보여주는 탐험 수료증 */
@@ -93,8 +95,8 @@ interface GameState {
   /** 게임 안에서 일어난 일을 알립니다. 맞는 목표가 있으면 진행됩니다 */
   questEvent: (kind: string, target: string) => void
   turnInQuest: (id: string) => void
-  showEnding: () => void
-  dismissEnding: () => void
+  showSiteEnding: (id: MapId) => void
+  dismissSiteEnding: () => void
   addMemorialMessage: (text: string) => void
   openCertificate: () => void
   closeCertificate: () => void
@@ -112,7 +114,7 @@ interface SaveData {
   codex: string[]
   active: Record<string, QuestRun>
   completedQuests: string[]
-  endingSeen: boolean
+  siteEndingsSeen: MapId[]
   memorialMessages: string[]
 }
 
@@ -134,7 +136,7 @@ function persist(s: GameState) {
       codex: s.codex,
       active: s.active,
       completedQuests: s.completedQuests,
-      endingSeen: s.endingSeen,
+      siteEndingsSeen: s.siteEndingsSeen,
       memorialMessages: s.memorialMessages,
     }
     localStorage.setItem(SAVE_KEY, JSON.stringify({ v: SAVE_VERSION, state }))
@@ -165,8 +167,8 @@ export const useGameStore = create<GameState>((set, get) => ({
   worldMapOpen: false,
   puzzle: null,
   inventoryOpen: false,
-  ending: false,
-  endingSeen: saved?.endingSeen ?? false,
+  siteEnding: null,
+  siteEndingsSeen: saved?.siteEndingsSeen ?? [],
   memorialMessages: saved?.memorialMessages ?? [],
   certificate: false,
 
@@ -253,8 +255,12 @@ export const useGameStore = create<GameState>((set, get) => ({
     get().gainXp(quest.rewards.xp + newCodex.length * CODEX_XP)
   },
 
-  showEnding: () => set({ ending: true, endingSeen: true }),
-  dismissEnding: () => set({ ending: false }),
+  showSiteEnding: (id) =>
+    set((s) => ({
+      siteEnding: id,
+      siteEndingsSeen: s.siteEndingsSeen.includes(id) ? s.siteEndingsSeen : [...s.siteEndingsSeen, id],
+    })),
+  dismissSiteEnding: () => set({ siteEnding: null }),
 
   addMemorialMessage: (text) => {
     const trimmed = text.trim().slice(0, 80)

@@ -14,7 +14,9 @@ import { PineForest, River, Songbi } from './ddeuldeulgang/DdeuldeulgangProps'
  *
  * 다른 맵들과 달리 "유적을 배운다"가 아니라 "숲을 걷고 노래를 완성한다"는
  * 결이라, 빛도 색도 더 맑게 갑니다 — 짙은 상록의 소나무와 드들강의
- * 잔잔한 물빛. 배경음악(BgmToggle)이 붙는 유일한 맵이기도 합니다.
+ * 잔잔한 물빛. 게임 전체에 흐르는 탐험 테마가 여기서만 <엄마야 누나야>로
+ * 바뀝니다(→ src/ui/Bgm.tsx) — 작곡가 안성현 선생을 기리는 이 장소만의
+ * 특별한 순간입니다.
  * → ddeuldeulgang/layout.ts 상단 고증 메모.
  */
 const TERRAIN = { bounds: BOUNDS, colliders: COLLIDERS, spawn: LAYOUT.spawn }

@@ -52,6 +52,7 @@ export function WorldMap() {
   const isOpen = useGameStore((s) => s.worldMapOpen)
   const close = useGameStore((s) => s.closeWorldMap)
   const completed = useGameStore((s) => s.completedQuests)
+  const active = useGameStore((s) => s.active)
   const current = useMapStore((s) => s.current)
   const travelTo = useMapStore((s) => s.travelTo)
   const [hover, setHover] = useState<MapId | null>(null)
@@ -136,7 +137,7 @@ export function WorldMap() {
 
             {MAP_ORDER.map((id) => {
               const def = MAPS[id]
-              const unlocked = isUnlocked(def, completed)
+              const unlocked = isUnlocked(def, completed, active)
               const here = id === current
               const [px, py] = def.worldMapPos
               return (
@@ -173,7 +174,7 @@ export function WorldMap() {
             <span style={{ fontSize: 12, opacity: 0.7 }}>{MAPS[shown].region} · {MAPS[shown].era}</span>
           </div>
           <p style={{ margin: '5px 0 0', fontSize: 13, opacity: 0.85, lineHeight: 1.55 }}>
-            {isUnlocked(MAPS[shown], completed)
+            {isUnlocked(MAPS[shown], completed, active)
               ? MAPS[shown].blurb
               : '아직 갈 수 없는 곳입니다. 퀘스트를 진행하면 열립니다.'}
           </p>

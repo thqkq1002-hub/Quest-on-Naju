@@ -140,7 +140,7 @@ export function DasiSchoolField({ shadows }: { shadows: boolean }) {
           x={ORCHARD.xFrom + 2}
           z={4}
           label="팻말 앞에서 나주배 따기 체험하기"
-          range={3}
+          range={4.5}
           onFirst={() => openPuzzle('puzzle-pear-catch')}
         >
           <mesh position={[0, 0.6, 0]} castShadow>
@@ -195,6 +195,7 @@ export function DasiSchoolField({ shadows }: { shadows: boolean }) {
         z={LAYOUT.teacher.z}
         gives={[
           'dasi-00-meet-teacher',
+          'dasi-02-go-bokamri',
           'dasi-guide-02-munpyeong',
           'dasi-guide-03-najueupseong',
           'dasi-guide-04-yeongsanpo',
@@ -202,9 +203,11 @@ export function DasiSchoolField({ shadows }: { shadows: boolean }) {
           'dasi-guide-06-najustation',
           'dasi-guide-07-ddeuldeulgang',
           'dasi-guide-08-bitgaram',
+          'dasi-09-return-graduate',
         ]}
         turnsIn={[
           'dasi-00-meet-teacher',
+          'dasi-02-go-bokamri',
           'dasi-guide-02-munpyeong',
           'dasi-guide-03-najueupseong',
           'dasi-guide-04-yeongsanpo',
@@ -212,8 +215,13 @@ export function DasiSchoolField({ shadows }: { shadows: boolean }) {
           'dasi-guide-06-najustation',
           'dasi-guide-07-ddeuldeulgang',
           'dasi-guide-08-bitgaram',
+          'dasi-09-return-graduate',
         ]}
-        idle="복암리는 지도를 열면 갈 수 있어. 오른쪽 위 「나주 지도」를 눌러 보렴."
+        idle={
+          allQuestsDone
+            ? '이제 내가 안내할 곳은 다 안내했단다. 교장선생님을 한번 찾아가 보렴.'
+            : '오른쪽 위 「나주 지도」를 눌러서 지금 갈 수 있는 곳을 확인해 보렴.'
+        }
       >
         <TeacherBody />
       </QuestNpc>

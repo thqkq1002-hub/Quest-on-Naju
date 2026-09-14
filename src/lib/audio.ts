@@ -4,9 +4,10 @@
  *
  * 외부 오디오 파일이나 라이브러리 없이, 오실레이터 두 개(기본음 + 옅은
  * 배음)를 겹쳐 종처럼 감쇠시키는 방식으로 "오르골 톤"을 흉내 냅니다.
- * 드들강 맵에서만 씁니다 — 다른 맵은 이 모듈을 아예 import 하지 않습니다.
+ * 게임 전체에서 탐험 테마(EXPLORE_MELODY)가 기본으로 돌고, 드들강에서만
+ * <엄마야 누나야>로 바뀝니다 — src/ui/Bgm.tsx 참고.
  */
-import { NOTE_FREQ, OMMAYA_MELODY } from './melody'
+import { EXPLORE_MELODY, NOTE_FREQ, type MelodyNote } from './melody'
 
 let ctx: AudioContext | null = null
 let masterGain: GainNode | null = null
@@ -82,16 +83,23 @@ export function playNote(note: string, whenSec = 0, duration = 0.4) {
 
 let loopHandle = 0
 let loopRunning = false
+let activeMelody: readonly MelodyNote[] | null = null
 
-/** 배경음악 루프 시작 — 이미 돌고 있으면 아무 일도 하지 않습니다 */
-export function startAmbientLoop() {
-  if (loopRunning) return
-  loopRunning = true
+/**
+ * 배경음악 루프 시작. 이미 같은 멜로디가 돌고 있으면 아무 일도 하지
+ * 않습니다 — 곡 중간에 처음부터 다시 시작하며 끊기지 않게 합니다.
+ * 다른 멜로디가 넘어오면(맵 이동 등) 그쪽으로 자연스럽게 갈아탑니다.
+ */
+export function startAmbientLoop(melody: readonly MelodyNote[] = EXPLORE_MELODY) {
   unlockAudio()
+  if (loopRunning && activeMelody === melody) return
+  window.clearTimeout(loopHandle)
+  loopRunning = true
+  activeMelody = melody
   let i = 0
   const step = () => {
-    if (!loopRunning) return
-    const n = OMMAYA_MELODY[i % OMMAYA_MELODY.length]
+    if (!loopRunning || activeMelody !== melody) return
+    const n = melody[i % melody.length]
     if (n.note) playNote(n.note, 0, n.dur * 0.92)
     i++
     loopHandle = window.setTimeout(step, n.dur * 1000)
@@ -101,5 +109,6 @@ export function startAmbientLoop() {
 
 export function stopAmbientLoop() {
   loopRunning = false
+  activeMelody = null
   window.clearTimeout(loopHandle)
 }

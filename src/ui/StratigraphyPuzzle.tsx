@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useGameStore } from '@/store/gameStore'
 import { LAYER_COLORS } from '@/game/world/maps/bokamri/BokamriProps'
 
@@ -40,6 +40,17 @@ export function StratigraphyPuzzle() {
   const [done, setDone] = useState(false)
 
   const correct = useMemo(() => order.every((id, i) => id === i), [order])
+
+  // 한 번 풀고 다시 열어도(once=false라 재도전 가능) 처음부터 다시 시작합니다 —
+  // 그러지 않으면 이전에 푼 완료 상태(done=true)가 그대로 남아 두 버튼이
+  // 계속 비활성인 채로 창이 멈춰 버립니다.
+  useEffect(() => {
+    if (!open) return
+    setOrder(SCRAMBLED)
+    setPicked(null)
+    setMsg(null)
+    setDone(false)
+  }, [open])
 
   if (!open) return null
 
@@ -115,8 +126,9 @@ export function StratigraphyPuzzle() {
         )}
 
         <div style={{ display: 'flex', gap: 10, marginTop: 16 }}>
-          <button onClick={close} style={ghostBtn} disabled={done}>
-            나중에 하기
+          {/* 닫기는 완료 여부와 무관하게 항상 눌립니다 — 어떤 상태에서도 빠져나갈 길은 있어야 합니다 */}
+          <button onClick={close} style={ghostBtn}>
+            {done ? '닫기' : '나중에 하기'}
           </button>
           <button onClick={check} style={primaryBtn} disabled={done}>
             {done ? '완료!' : '이대로 맞나요?'}

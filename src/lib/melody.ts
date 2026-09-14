@@ -61,3 +61,41 @@ export const OMMAYA_MELODY: readonly MelodyNote[] = [
 export const OMMAYA_NOTES: readonly string[] = OMMAYA_MELODY.filter((n) => n.note).map(
   (n) => n.note as string,
 )
+
+/**
+ * 탐험 테마 — 다시초를 포함한 모든 지역에서 기본으로 흐르는 배경음악.
+ *
+ * <엄마야 누나야>는 드들강 한 곳만의 특별한 순간으로 남겨 두고 싶어서,
+ * 게임 전체를 도는 동안에는 이 곡을 씁니다. 씩씩하게 오르는 첫 소절과
+ * 두리번거리듯 호기심 어린 둘째 소절 — "새로운 곳에 막 도착한 기분"을
+ * 오단음계(도레미솔라)로 담았습니다. 실존 곡이 아닌 이 프로젝트를 위한
+ * 창작 멜로디입니다.
+ */
+export const EXPLORE_MELODY: readonly MelodyNote[] = [
+  // 문을 나서는 첫 걸음 — 씩씩하게 오릅니다
+  { note: 'C4', dur: 0.26 },
+  { note: 'E4', dur: 0.26 },
+  { note: 'G4', dur: 0.26 },
+  { note: 'C5', dur: 0.4 },
+  { note: 'A4', dur: 0.26 },
+  { note: 'G4', dur: 0.26 },
+  { note: 'E4', dur: 0.26 },
+  { note: 'G4', dur: 0.5 },
+  { note: null, dur: 0.2 },
+  // 두리번거리듯 — 호기심 어린 대답구
+  { note: 'A4', dur: 0.26 },
+  { note: 'G4', dur: 0.26 },
+  { note: 'E4', dur: 0.26 },
+  { note: 'D4', dur: 0.4 },
+  { note: 'E4', dur: 0.26 },
+  { note: 'D4', dur: 0.26 },
+  { note: 'C4', dur: 0.26 },
+  { note: 'D4', dur: 0.5 },
+  { note: null, dur: 0.2 },
+  // 다시 씩씩하게 — 한 번 더 오르며 마무리
+  { note: 'E4', dur: 0.26 },
+  { note: 'G4', dur: 0.26 },
+  { note: 'A4', dur: 0.5 },
+  { note: 'C5', dur: 0.75 },
+  { note: null, dur: 0.6 },
+] as const

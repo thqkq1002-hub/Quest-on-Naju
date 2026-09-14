@@ -188,7 +188,7 @@ export function NajueupseongSite({ shadows }: { shadows: boolean }) {
         )
       })}
 
-      {/* 나주목사 김 목사님 — 남고문에서 금성관으로 가는 길목에서 맞아 줍니다 */}
+      {/* 나주목사 김 목사님 — 진입로 초입에서 맞아 줍니다 */}
       <QuestNpc
         id="npc-mayor"
         name="나주목사 김 목사님"

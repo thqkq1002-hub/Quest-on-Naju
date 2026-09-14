@@ -71,7 +71,7 @@ export const MAPS: Record<MapId, MapDef> = {
     scene: lazy(() =>
       import('./maps/BokamriSite').then((m) => ({ default: m.BokamriSite })),
     ),
-    unlock: { type: 'quest', id: 'dasi-00-meet-teacher' },
+    unlock: { type: 'quest', id: 'dasi-02-go-bokamri' },
     worldMapPos: [0.42, 0.38],
   },
   bitgaram: {
@@ -182,6 +182,19 @@ export const MAP_ORDER: MapId[] = [
   'bitgaram',
 ]
 
-export function isUnlocked(def: MapDef, completedQuests: string[]): boolean {
-  return def.unlock.type === 'always' || completedQuests.includes(def.unlock.id)
+/**
+ * 잠금 해제 판정.
+ *
+ * 안내 퀘스트는 담임 선생님이 "가보렴" 하고 말을 꺼낸 순간(수락) 길이
+ * 열려야 합니다 — 학교로 돌아와 보고(완료 처리)까지 마쳐야 갈 수 있다면,
+ * 안내를 들은 아이가 갈 곳을 못 찾는 꼴입니다. 그래서 완료뿐 아니라
+ * 수락(활성) 상태도 잠금 해제 조건으로 봅니다.
+ */
+export function isUnlocked(
+  def: MapDef,
+  completedQuests: string[],
+  activeQuests: Record<string, unknown> = {},
+): boolean {
+  if (def.unlock.type === 'always') return true
+  return completedQuests.includes(def.unlock.id) || def.unlock.id in activeQuests
 }

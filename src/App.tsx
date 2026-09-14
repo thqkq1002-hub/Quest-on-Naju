@@ -13,14 +13,14 @@ import { RelicDigGame } from '@/ui/RelicDigGame'
 import { HongeoComboGame } from '@/ui/HongeoComboGame'
 import { WallStonePuzzle } from '@/ui/WallStonePuzzle'
 import { PineNoteRhythmGame } from '@/ui/PineNoteRhythmGame'
-import { BgmToggle } from '@/ui/BgmToggle'
+import { Bgm } from '@/ui/Bgm'
 import { UibyeongTorchGame } from '@/ui/UibyeongTorchGame'
 import { PearCatchGame } from '@/ui/PearCatchGame'
 import { QuizPuzzle } from '@/ui/QuizPuzzle'
 import { MemorialGuestbook } from '@/ui/MemorialGuestbook'
 import { Certificate } from '@/ui/Certificate'
 import { InventoryButton, InventoryModal } from '@/ui/InventoryModal'
-import { Ending, EndingWatcher } from '@/ui/Ending'
+import { SiteEnding, SiteEndingWatcher } from '@/ui/SiteEnding'
 import { resetCamera } from '@/game/player/camera'
 
 /**
@@ -102,14 +102,14 @@ export default function App() {
         <WallStonePuzzle />
         <PineNoteRhythmGame />
         <UibyeongTorchGame />
-        <BgmToggle />
+        <Bgm />
         <PearCatchGame />
         <QuizPuzzle />
         <MemorialGuestbook />
         <Certificate />
         <InventoryModal />
-        <EndingWatcher />
-        <Ending />
+        <SiteEndingWatcher />
+        <SiteEnding />
         <SailOverlay />
       </div>
     </div>

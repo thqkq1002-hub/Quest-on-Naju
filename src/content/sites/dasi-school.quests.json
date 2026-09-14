@@ -2,16 +2,16 @@
   {
     "id": "dasi-00-meet-teacher",
     "site": "naju-world",
-    "title": "흙냄새 나는 언덕",
+    "title": "배나무 밭으로",
     "type": "OBSERVE",
     "requiredLevel": 1,
     "prerequisites": [],
     "giver": { "npc": "npc-teacher", "marker": "!" },
     "turnIn": { "npc": "npc-teacher", "marker": "?" },
     "dialogue": {
-      "offer": "어, 왔구나. 마침 잘 됐다. 오늘 사회 시간에 쓸 게 있는데 말이야.\n너 복암리라고 들어봤니? 여기서 보이진 않지만, 같은 다시면이야.\n거기 언덕이 몇 개 있는데, 그냥 언덕이 아니라 1500년 된 무덤이란다.\n나주 복암리 고분군. 사적 404호. 네가 사는 동네에 그런 게 있는 거야.\n한번 가볼래? 가겠다고 하면 내가 뱃길을 알려주마.",
-      "progress": "복암리에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
-      "complete": "좋다. 영산강 뱃길을 따라가면 금방이야. 오른쪽 위 「나주 지도」를 누르면 배가 뜬단다."
+      "offer": "어, 왔구나. 마침 잘 됐다. 오늘은 교실 밖에서 시작해 보자.\n학교 동쪽에 배나무 밭 보이지? 저기가 바로 우리 나주가 자랑하는 나주배 밭이란다.\n먼저 저기 가서 과수원 할머니를 만나 나주배 따기 체험을 해보렴. 우리 고장 특산물부터 알아가는 거야.\n한번 가볼래?",
+      "progress": "배나무 밭에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "좋다. 학교 동쪽 배나무 밭으로 가서 과수원 할머니를 찾아보렴."
     },
     "objectives": [
       {
@@ -27,6 +27,34 @@
       "codex": [],
       "title": null
     },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["우리 동네의 문화유산", "다시면", "사적"]
+    }
+  },
+  {
+    "id": "dasi-02-go-bokamri",
+    "site": "naju-world",
+    "title": "다음 목적지, 복암리 고분군",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": ["dasi-01-pear-quiz"],
+    "giver": { "npc": "npc-teacher", "marker": "!" },
+    "turnIn": { "npc": "npc-teacher", "marker": "?" },
+    "dialogue": {
+      "offer": "나주배 따기 체험까지 잘 마치고 왔구나! 달콤했지?\n그럼 이번엔 진짜 탐험을 떠나 보자. 너 복암리라고 들어봤니? 여기서 보이진 않지만, 같은 다시면이야.\n거기 언덕이 몇 개 있는데, 그냥 언덕이 아니라 1500년 된 무덤이란다.\n나주 복암리 고분군. 사적 404호. 네가 사는 동네에 그런 게 있는 거야.\n한번 가볼래? 가겠다고 하면 내가 뱃길을 알려주마.",
+      "progress": "복암리에 가보겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "좋다. 영산강 뱃길을 따라가면 금방이야. 오른쪽 위 「나주 지도」를 누르면 배가 뜬단다."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "dialogue",
+        "target": "npc-teacher-intro",
+        "label": "담임 선생님의 이야기 듣기"
+      }
+    ],
+    "rewards": { "xp": 40, "items": [], "codex": [], "title": null },
     "learning": {
       "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
       "concepts": ["우리 동네의 문화유산", "다시면", "사적"]
@@ -55,7 +83,7 @@
       {
         "id": "o1",
         "kind": "dialogue",
-        "target": "npc-teacher-guide-02",
+        "target": "npc-teacher-intro",
         "label": "담임 선생님의 이야기 듣기"
       }
     ],
@@ -88,7 +116,7 @@
       {
         "id": "o1",
         "kind": "dialogue",
-        "target": "npc-teacher-guide-03",
+        "target": "npc-teacher-intro",
         "label": "담임 선생님의 이야기 듣기"
       }
     ],
@@ -120,7 +148,7 @@
       {
         "id": "o1",
         "kind": "dialogue",
-        "target": "npc-teacher-guide-04",
+        "target": "npc-teacher-intro",
         "label": "담임 선생님의 이야기 듣기"
       }
     ],
@@ -148,7 +176,7 @@
       {
         "id": "o1",
         "kind": "dialogue",
-        "target": "npc-teacher-guide-05",
+        "target": "npc-teacher-intro",
         "label": "담임 선생님의 이야기 듣기"
       }
     ],
@@ -176,7 +204,7 @@
       {
         "id": "o1",
         "kind": "dialogue",
-        "target": "npc-teacher-guide-06",
+        "target": "npc-teacher-intro",
         "label": "담임 선생님의 이야기 듣기"
       }
     ],
@@ -209,7 +237,7 @@
       {
         "id": "o1",
         "kind": "dialogue",
-        "target": "npc-teacher-guide-07",
+        "target": "npc-teacher-intro",
         "label": "담임 선생님의 이야기 듣기"
       }
     ],
@@ -237,7 +265,7 @@
       {
         "id": "o1",
         "kind": "dialogue",
-        "target": "npc-teacher-guide-08",
+        "target": "npc-teacher-intro",
         "label": "담임 선생님의 이야기 듣기"
       }
     ],
@@ -245,6 +273,41 @@
     "learning": {
       "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
       "concepts": ["우리 지역의 문화유산", "탐구 계획"]
+    }
+  },
+  {
+    "id": "dasi-09-return-graduate",
+    "site": "naju-world",
+    "title": "모든 여정을 마치고",
+    "type": "OBSERVE",
+    "requiredLevel": 1,
+    "prerequisites": [
+      "bitgaram-01-observatory",
+      "bitgaram-02-kepco",
+      "bitgaram-03-kentech",
+      "bitgaram-04-kpx",
+      "bitgaram-05-kocca",
+      "bitgaram-06-smart-life"
+    ],
+    "giver": { "npc": "npc-teacher", "marker": "!" },
+    "turnIn": { "npc": "npc-teacher", "marker": "?" },
+    "dialogue": {
+      "offer": "오, 다 돌아봤구나! 빛가람동까지 둘러봤다니 — 나주의 옛날과 오늘을 전부 만나고 온 거란다.\n장하다. 그런데 아직 한 분 더 뵈어야 해. 교장선생님께 인사드리러 가보겠니?",
+      "progress": "교장선생님을 뵈러 가겠다고 했지? 마음이 정해지면 다시 오렴.",
+      "complete": "그래, 교장선생님은 운동장 저쪽에 계실 거야. 가서 인사드리렴."
+    },
+    "objectives": [
+      {
+        "id": "o1",
+        "kind": "dialogue",
+        "target": "npc-teacher-intro",
+        "label": "담임 선생님의 이야기 듣기"
+      }
+    ],
+    "rewards": { "xp": 60, "items": [], "codex": [], "title": null },
+    "learning": {
+      "curriculum": "초등 사회 5-2 · 우리 지역의 문화유산",
+      "concepts": ["우리 지역의 문화유산", "탐구 정리"]
     }
   },
   {

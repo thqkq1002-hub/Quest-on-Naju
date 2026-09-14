@@ -40,6 +40,12 @@ export function BokamriSite({ shadows }: { shadows: boolean }) {
   const active = useGameStore((s) => s.active)
   const completed = useGameStore((s) => s.completedQuests)
 
+  // '3호 트렌치로 가기'를 위치만으로 판정하면, 층위 표지처럼 트렌치에서
+  // 살짝 떨어진 대상을 먼 쪽 경계에서 살펴봤을 때 반경 밖으로 새 나갈 수
+  // 있습니다. 그래서 트렌치 안의 무언가와 실제로 상호작용한 순간에도
+  // 같이 채웁니다 — 거리 계산이 아니라 행동 자체가 증거가 되게.
+  const markTrenchReached = () => useGameStore.getState().questEvent('reach', 'trench-3')
+
   const digging = 'bokamri-01-first-dig' in active || completed.includes('bokamri-01-first-dig')
   const diggingShoe =
     'bokamri-03-golden-shoe' in active || completed.includes('bokamri-03-golden-shoe')
@@ -129,14 +135,17 @@ export function BokamriSite({ shadows }: { shadows: boolean }) {
         </mesh>
       </Interactable>
 
-      {/* 3호 트렌치 — 도착 목표이자 퍼즐 입구 */}
+      {/* 3호 트렌치 — 도착 목표이자 퍼즐 입구.
+          트렌치 중앙에 놓고 반경을 넓게 잡습니다 — 층위 표지나 퍼즐
+          안내판을 살피려면 어차피 이 안에 들어와야 하니, 어느 방향에서
+          다가오든(서쪽 발굴 캠프 경유 포함) 놓치지 않습니다. */}
       <Interactable
         targetId="trench-3"
         kind="reach"
         x={LAYOUT.trench.x}
-        z={LAYOUT.trench.z + 6}
+        z={LAYOUT.trench.z}
         label="3호 트렌치"
-        range={5}
+        range={7}
       />
 
       {/* 층위 표지 셋 — 세 개를 다 확인해야 층의 순서를 알 수 있습니다 */}
@@ -156,6 +165,7 @@ export function BokamriSite({ shadows }: { shadows: boolean }) {
             ][i]
           }
           range={2.6}
+          onFirst={markTrenchReached}
         >
           <LayerMarker index={i} />
         </Interactable>
@@ -171,7 +181,10 @@ export function BokamriSite({ shadows }: { shadows: boolean }) {
           z={LAYOUT.trench.z + 1}
           label="흙손으로 층위 살펴보기"
           range={3.2}
-          onFirst={() => openPuzzle('puzzle-stratigraphy')}
+          onFirst={() => {
+            markTrenchReached()
+            openPuzzle('puzzle-stratigraphy')
+          }}
         >
           <mesh position={[0, 0.4, 0]} castShadow>
             <boxGeometry args={[0.5, 0.1, 0.14]} />
