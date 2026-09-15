@@ -28,21 +28,49 @@ export const LAYOUT = {
   /** 홍살문 — 사당 영역의 입구 */
   hongsalmun: { x: 0, z: 20 },
 
+  /**
+   * 외삼문 — 홍살문을 지나 안마당으로 들어서는 세 칸 솟을대문.
+   * 실제 정렬사 답사 영상에서 확인되는 기와지붕 대문을 재구성했습니다.
+   * 가운데 어간(御間)만 열려 있고 양쪽 협칸은 벽으로 막혀 있습니다.
+   */
+  oesammun: { x: 0, z: 12, w: 7.2, d: 3, h: 4.4 },
+
   /** [구역 1] 유물전시관 — 김천일 선생의 유품·의병 기록 */
-  exhibit: { x: -16, z: 8, w: 10, d: 8, h: 5 },
-  exhibitInfo: { x: -16, z: 2 },
-  exhibitQuiz: { x: -8, z: 2 },
+  exhibit: { x: -16, z: 4, w: 10, d: 8, h: 5 },
+  exhibitInfo: { x: -16, z: -2 },
+  exhibitQuiz: { x: -8, z: -2 },
+  /** 전시관 옆면에 거는 「제2차 진주성 전투도」 — 김천일이 순절한 전투를 그린 모사도 */
+  exhibitMural: { x: -16 + 5 + 0.1, z: 4 },
 
   /** [구역 2] 사당(정렬사) — 충절 5위 위패 */
-  shrine: { x: 0, z: -18, w: 18, d: 12, h: 7 },
-  shrineInfo: { x: 0, z: -9 },
+  shrine: { x: 0, z: -22, w: 18, d: 12, h: 7 },
+  shrineInfo: { x: 0, z: -13 },
 
   /** 의병 훈련 모닥불 — 사당 앞마당, 깃발·횃불 미니게임 */
-  bonfire: { x: 0, z: -2 },
+  bonfire: { x: 0, z: -6 },
+
+  /** 김천일 장군 동상 — 답사 영상에서 확인되는 청동상. 진입로 동쪽, 참배객을 맞는 자리 */
+  statue: { x: 13, z: 24, h: 4.4 },
+
+  /** 정렬사 사적비 — 임진왜란과 김천일의 의병 창의를 새긴 번역비. 진입로 서쪽 */
+  stele: { x: -13, z: 24, h: 2.6 },
+  /** 사적비 뒤로 두르는 나지막한 돌 축대 */
+  steleWall: { x: -13, z: 27, w: 8 },
 } as const
 
-/** 사당·전시관 본체만 막습니다. 홍살문은 기둥 사이로 지나갈 수 있습니다 */
+/** 사당·전시관·외삼문 협칸만 막습니다. 홍살문과 외삼문 어간은 지나갈 수 있습니다 */
 export const COLLIDERS: readonly Box[] = [
   box(LAYOUT.exhibit.x, LAYOUT.exhibit.z, LAYOUT.exhibit.w, LAYOUT.exhibit.d),
   box(LAYOUT.shrine.x, LAYOUT.shrine.z, LAYOUT.shrine.w, LAYOUT.shrine.d),
+  box(LAYOUT.oesammun.x - 2.5, LAYOUT.oesammun.z, 2, LAYOUT.oesammun.d),
+  box(LAYOUT.oesammun.x + 2.5, LAYOUT.oesammun.z, 2, LAYOUT.oesammun.d),
+  box(LAYOUT.statue.x, LAYOUT.statue.z, 1.6, 1.6),
+  box(LAYOUT.stele.x, LAYOUT.stele.z, 1, 0.6),
+]
+
+/** 사당 뒷산을 두르는 소나무 숲 — 답사 영상 속 나지막한 뒷산을 재구성합니다 */
+export const PINES: ReadonlyArray<[x: number, z: number, scale: number]> = [
+  [-34, -30, 1.1], [-24, -38, 1.0], [-8, -42, 1.05], [10, -40, 1.0],
+  [26, -34, 1.1], [36, -22, 0.95], [-40, -10, 1.0], [-42, 14, 1.05],
+  [40, -2, 1.0], [40, 20, 0.95], [-34, 30, 0.9], [30, 34, 1.0],
 ]

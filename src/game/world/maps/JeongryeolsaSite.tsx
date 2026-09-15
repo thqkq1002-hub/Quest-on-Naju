@@ -7,7 +7,17 @@ import { KimCheonilBody } from '../bodies'
 import { setTerrain } from '../terrain'
 import { useGameStore } from '@/store/gameStore'
 import { BOUNDS, COLLIDERS, LAYOUT } from './jeongryeolsa/layout'
-import { Bonfire, ExhibitHall, Hongsalmun, Shrine } from './jeongryeolsa/JeongryeolsaProps'
+import {
+  Bonfire,
+  ExhibitHall,
+  ExhibitMural,
+  Hongsalmun,
+  KimCheonilStatue,
+  Oesammun,
+  PineTrees,
+  Shrine,
+  Stele,
+} from './jeongryeolsa/JeongryeolsaProps'
 
 /**
  * 정렬사 — 김천일 의병장과 충절 5위를 기리는 사당. 아홉 번째 거점입니다.
@@ -61,10 +71,36 @@ export function JeongryeolsaSite({ shadows }: { shadows: boolean }) {
         <meshLambertMaterial color={PALETTE.path} flatShading />
       </mesh>
 
+      <PineTrees />
+
+      {/* 참배객을 맞는 동상·사적비 — 진입로 좌우 */}
+      <KimCheonilStatue />
+      <Interactable
+        targetId="info-statue"
+        x={LAYOUT.statue.x - 3}
+        z={LAYOUT.statue.z}
+        label="김천일 장군 동상 살펴보기"
+        title="김천일 장군 동상"
+        body="붓을 놓고 칼을 든 선비, 김천일(金千鎰). 나주 금성관 망화루 앞에서 호남 최초로 의병을 일으켰습니다."
+        range={3.2}
+      />
+      <Stele />
+      <Interactable
+        targetId="info-stele"
+        x={LAYOUT.stele.x + 3}
+        z={LAYOUT.stele.z}
+        label="정렬사 사적비 읽기"
+        title="정렬사 사적비"
+        body="임진왜란이 일어나자 김천일은 나주에서 의병을 일으켜 북상했고, 아들 김상건과 함께 제2차 진주성 전투에서 끝까지 싸우다 순절했습니다. 이 비석은 그 창의(倡義)의 내력을 새겨 후세에 전합니다."
+        range={3.2}
+      />
+
       <Hongsalmun />
+      <Oesammun />
 
       {/* [구역 1] 유물전시관 */}
       <ExhibitHall />
+      <ExhibitMural />
       <Html
         position={[LAYOUT.exhibit.x, LAYOUT.exhibit.h + 1.6, LAYOUT.exhibit.z]}
         center

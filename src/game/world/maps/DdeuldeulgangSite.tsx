@@ -7,7 +7,7 @@ import { SoliBody } from '../bodies'
 import { setTerrain } from '../terrain'
 import { useGameStore } from '@/store/gameStore'
 import { BOUNDS, COLLIDERS, LAYOUT } from './ddeuldeulgang/layout'
-import { PineForest, River, Songbi } from './ddeuldeulgang/DdeuldeulgangProps'
+import { Benches, Pavilion, PineForest, Reeds, River, Songbi } from './ddeuldeulgang/DdeuldeulgangProps'
 
 /**
  * 드들강 솔밭유원지 — 남평읍. 다시역에서 기차로 이어지는 여섯 번째 거점.
@@ -63,7 +63,21 @@ export function DdeuldeulgangSite({ shadows }: { shadows: boolean }) {
       </mesh>
 
       <River />
+      <Reeds />
       <PineForest />
+      <Benches />
+
+      {/* 정자 — 솔밭 한가운데 트인 잔디밭 쉼터 */}
+      <Pavilion />
+      <Interactable
+        targetId="info-pavilion"
+        x={LAYOUT.pavilion.x - LAYOUT.pavilion.r - 1}
+        z={LAYOUT.pavilion.z}
+        label="정자에서 쉬어가기"
+        title="정자"
+        body="솔밭 한가운데 트인 잔디밭에 선 육각 정자입니다. 드들강 물소리를 들으며 잠시 숨을 고르기 좋은 자리입니다."
+        range={3.2}
+      />
 
       {/* 안성현 선생 노래비 */}
       <Songbi />
