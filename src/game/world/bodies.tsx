@@ -945,3 +945,59 @@ export function KimCheonilBody() {
     </>
   )
 }
+
+/**
+ * 나대용 장군 — 짙은 청록 갑옷에 두 손으로 거북선 모형을 받쳐 든 모습.
+ * 칼을 든 김천일과 달리, "배를 만든 과학자"라는 정체성을 손에 든
+ * 거북선 모형 하나로 드러냅니다.
+ */
+export function NaDaeyongBody() {
+  return (
+    <>
+      <Legs color="#2b2f38" />
+      {/* 갑옷 몸통 */}
+      <mesh position={[0, 1.16, 0]} castShadow>
+        <boxGeometry args={[0.64, 0.82, 0.36]} />
+        <meshLambertMaterial color={PALETTE.dancheongGreen} flatShading />
+      </mesh>
+      {/* 갑옷 미늘 줄 */}
+      {[0.98, 1.16, 1.34].map((y) => (
+        <mesh key={y} position={[0, y, 0.185]}>
+          <boxGeometry args={[0.6, 0.05, 0.02]} />
+          <meshLambertMaterial color="#2f5240" flatShading />
+        </mesh>
+      ))}
+      {/* 어깨 장식 */}
+      {[-1, 1].map((s) => (
+        <mesh key={s} position={[s * 0.36, 1.5, 0]} castShadow>
+          <boxGeometry args={[0.2, 0.16, 0.4]} />
+          <meshLambertMaterial color={PALETTE.dragonGold} flatShading />
+        </mesh>
+      ))}
+      <Arms color="#3a3f4a" y={1.02} />
+      <Head hair="#1c1712" />
+      {/* 투구 */}
+      <mesh position={[0, 2.05, 0]} castShadow>
+        <sphereGeometry args={[0.26, 10, 6, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshLambertMaterial color="#3a3f4a" flatShading />
+      </mesh>
+      <mesh position={[0, 1.97, 0.1]} castShadow>
+        <boxGeometry args={[0.48, 0.06, 0.3]} />
+        <meshLambertMaterial color={PALETTE.dragonGold} flatShading />
+      </mesh>
+      {/* 두 손으로 받쳐 든 거북선 모형 */}
+      <mesh position={[0, 1.05, 0.36]} castShadow>
+        <boxGeometry args={[0.5, 0.16, 0.22]} />
+        <meshLambertMaterial color={PALETTE.changseonHull} flatShading />
+      </mesh>
+      <mesh position={[0, 1.14, 0.36]} castShadow>
+        <cylinderGeometry args={[0.13, 0.13, 0.46, 8, 1, false, 0, Math.PI]} />
+        <meshLambertMaterial color={PALETTE.turtleShell} flatShading side={2} />
+      </mesh>
+      <mesh position={[0.3, 1.08, 0.36]} rotation={[0, 0, -Math.PI / 2]} castShadow>
+        <coneGeometry args={[0.09, 0.2, 6]} />
+        <meshLambertMaterial color={PALETTE.dragonGold} flatShading />
+      </mesh>
+    </>
+  )
+}

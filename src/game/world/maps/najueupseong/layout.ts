@@ -41,6 +41,21 @@ export const LAYOUT = {
   geumseonggwanInfo: { x: 0, z: 12 },
 
   /**
+   * 망화루 — 금성관(객사)의 정문. 답사 영상 속 "객사의 정문인 망화루로
+   * 들어가고 있습니다"라는 설명을 그대로 옮겼습니다. 남고문에서 금성관으로
+   * 이어지는 진입로 한가운데 세워, 실제로 그 문을 지나야 금성관에 닿게 했습니다.
+   * 정렬사의 김천일 사적("금성관 망화루 앞에서 의병을 일으켰다")과도 이어집니다.
+   */
+  manghwaru: { x: 0, z: 30, w: 11, d: 5, h: 5.2 },
+
+  /** 동헌 — 목사가 정무를 보던 건물. 금성관 서쪽 옆에 둡니다 */
+  dongheon: { x: -19, z: -4, w: 11, d: 8, h: 5.6 },
+  dongheonInfo: { x: -19, z: 5 },
+
+  /** 당간지주 — 동점문 안쪽에 남은 돌 깃대 받침 한 쌍 */
+  dangganjiju: { x: 44, z: 14 },
+
+  /**
    * 나주곰탕집 — 금성관 동쪽 옆. 수호대장 마패를 얻은 뒤에만 나타나는
    * 보상성 가게입니다. 나주곰탕은 실제로 나주읍성 5일장 상인·길손을
    * 먹이던 국밥에서 비롯되었다고 전하는 나주의 대표 향토음식입니다.
@@ -61,6 +76,26 @@ export const LAYOUT = {
 
 export type GateId = keyof typeof LAYOUT.gates
 
+/**
+ * 초가 민가 — 답사 영상의 항공 재현 장면에서 성 안이 초가지붕 민가로
+ * 빽빽이 채워져 있던 모습을 재구성합니다. 가운데 흙마당과 금성관 진입로,
+ * 네 성문 축은 비워 두고 그 사이 빈 잔디에만 둡니다.
+ */
+export const HANOK_VILLAGE: ReadonlyArray<{ x: number; z: number; rotY: number }> = [
+  { x: -34, z: -34, rotY: 0.5 },
+  { x: -44, z: -20, rotY: 0.2 },
+  { x: -44, z: 20, rotY: -0.2 },
+  { x: -34, z: 34, rotY: -0.5 },
+  { x: 34, z: -34, rotY: -0.5 },
+  { x: 44, z: -22, rotY: 0.3 },
+  { x: 34, z: 34, rotY: 0.4 },
+  { x: -30, z: -46, rotY: 0.1 },
+  { x: 28, z: -46, rotY: -0.1 },
+  { x: -28, z: 46, rotY: -0.15 },
+  { x: 28, z: 46, rotY: 0.15 },
+  { x: -46, z: 4, rotY: -0.3 },
+]
+
 /** 문 안쪽으로 4m — 퀴즈·성벽 퍼즐 표지를 세우는 자리 */
 export function gateMarker(id: GateId) {
   const g = LAYOUT.gates[id]
@@ -78,6 +113,10 @@ const SEG_OFF = (WALL_HALF + GATE_GAP) / 2
 
 export const COLLIDERS: readonly Box[] = [
   box(LAYOUT.geumseonggwan.x, LAYOUT.geumseonggwan.z, LAYOUT.geumseonggwan.w, LAYOUT.geumseonggwan.d),
+  box(LAYOUT.dongheon.x, LAYOUT.dongheon.z, LAYOUT.dongheon.w, LAYOUT.dongheon.d),
+  // 망화루 — 가운데 어간은 비우고 양쪽 협칸만 막습니다
+  box(LAYOUT.manghwaru.x - 3.6, LAYOUT.manghwaru.z, 2.6, LAYOUT.manghwaru.d),
+  box(LAYOUT.manghwaru.x + 3.6, LAYOUT.manghwaru.z, 2.6, LAYOUT.manghwaru.d),
   // 남쪽 벽 — 남고문 좌우 두 토막
   box(-SEG_OFF, WALL_HALF, SEG_LEN, 3),
   box(SEG_OFF, WALL_HALF, SEG_LEN, 3),
@@ -90,4 +129,6 @@ export const COLLIDERS: readonly Box[] = [
   // 서쪽 벽 — 서성문 남북
   box(-WALL_HALF, -SEG_OFF, 3, SEG_LEN),
   box(-WALL_HALF, SEG_OFF, 3, SEG_LEN),
+  // 초가 민가 — 성 안을 채운 작은 집들
+  ...HANOK_VILLAGE.map((h) => box(h.x, h.z, 4.2, 3.4)),
 ]

@@ -7,7 +7,16 @@ import { GomtangLadyBody, MayorBody } from '../bodies'
 import { setTerrain } from '../terrain'
 import { useGameStore } from '@/store/gameStore'
 import { BOUNDS, COLLIDERS, LAYOUT, gateMarker, type GateId } from './najueupseong/layout'
-import { FortressWall, GateTower, Geumseonggwan, GomtangHouse } from './najueupseong/NajueupseongProps'
+import {
+  Dangganjiju,
+  Dongheon,
+  FortressWall,
+  GateTower,
+  Geumseonggwan,
+  GomtangHouse,
+  HanokVillage,
+  Manghwaru,
+} from './najueupseong/NajueupseongProps'
 
 /**
  * 나주읍성 — 금성관과 남고문·동점문·서성문·북망문 4대문.
@@ -74,6 +83,34 @@ export function NajueupseongSite({ shadows }: { shadows: boolean }) {
       {GATE_IDS.map((id) => (
         <GateTower key={id} id={id} />
       ))}
+      <HanokVillage />
+
+      {/* 당간지주 — 동점문 안쪽 */}
+      <Dangganjiju />
+      <Interactable
+        targetId="info-dangganjiju"
+        x={LAYOUT.dangganjiju.x - 3}
+        z={LAYOUT.dangganjiju.z}
+        label="당간지주 살펴보기"
+        title="당간지주"
+        body="당(幢)이라는 깃발을 걸어 두던 깃대를 받치던 돌기둥입니다. 배 모양의 깃발이 돛대처럼 걸렸다고 전합니다."
+        range={3.2}
+      />
+
+      {/* 동헌 — 목사의 집무 공간 */}
+      <Dongheon />
+      <Interactable
+        targetId="info-dongheon"
+        x={LAYOUT.dongheonInfo.x}
+        z={LAYOUT.dongheonInfo.z}
+        label="동헌 살펴보기"
+        title="동헌(東軒)"
+        body="나주목사가 실제로 정무를 보던 건물입니다. 금성관이 임금을 상징하는 의례 공간이라면, 동헌은 목사가 송사를 듣고 고을을 다스리던 일터였습니다."
+        range={3.2}
+      />
+
+      {/* 망화루 — 금성관 정문 */}
+      <Manghwaru />
 
       {/* 금성관 */}
       <Geumseonggwan />

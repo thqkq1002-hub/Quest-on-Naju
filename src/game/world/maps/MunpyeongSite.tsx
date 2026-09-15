@@ -8,7 +8,16 @@ import { SignPost } from './bokamri/BokamriProps'
 import { setTerrain } from '../terrain'
 import { useGameStore } from '@/store/gameStore'
 import { BOUNDS, COLLIDERS, LAYOUT } from './munpyeong/layout'
-import { Birthplace, ChangseonWorkshop, PineTrees, Shipyard, Sochungsa } from './munpyeong/MunpyeongProps'
+import {
+  Birthplace,
+  ChangseonWorkshop,
+  NaDaeyongStatue,
+  PineTrees,
+  Shipyard,
+  Sochungsa,
+  SochungsaGate,
+  SochungsaStair,
+} from './munpyeong/MunpyeongProps'
 
 /**
  * 문평면 — 무민공 나대용 장군 유적. 다시면·빛가람동 다음 세 번째 읍·면·동.
@@ -69,6 +78,18 @@ export function MunpyeongSite({ shadows }: { shadows: boolean }) {
 
       <PineTrees />
 
+      {/* 나대용 장군 동상 — 진입로에서 잘 보이는 자리 */}
+      <NaDaeyongStatue />
+      <Interactable
+        targetId="info-statue"
+        x={LAYOUT.statue.x - 3}
+        z={LAYOUT.statue.z}
+        label="나대용 장군 동상 살펴보기"
+        title="나대용 장군 동상"
+        body="칼 대신 손수 벼린 거북선 모형을 받쳐 든 모습으로 세운 동상입니다. 무민공 나대용은 이순신 장군과 함께 거북선을 개량한 조선의 군함 과학자였습니다."
+        range={3.2}
+      />
+
       {/* 나대용 장군 생가 */}
       <Birthplace />
       <Html
@@ -117,6 +138,8 @@ export function MunpyeongSite({ shadows }: { shadows: boolean }) {
       )}
 
       {/* 소충사 */}
+      <SochungsaStair />
+      <SochungsaGate />
       <Sochungsa />
       <Html
         position={[LAYOUT.sochungsa.x, LAYOUT.sochungsa.h + 3.2, LAYOUT.sochungsa.z]}

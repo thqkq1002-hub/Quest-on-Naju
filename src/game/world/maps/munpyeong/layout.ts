@@ -44,6 +44,15 @@ export const LAYOUT = {
   shipwright: { x: -6, z: 12 },
   /** 대장장이 — 창선 공방 앞 */
   blacksmith: { x: 40, z: 30 },
+
+  /**
+   * 나대용 장군 동상 — 답사 영상·관련 영상에서 확인되는 장군상을 재구성.
+   * 진입로에서 잘 보이도록 남쪽 초입 동쪽에 둡니다.
+   */
+  statue: { x: 14, z: 40, h: 4.4 },
+
+  /** 소충사 문루 — 실제 답사 영상 속 2층 대문(현판 걸린 붉은 문루)을 재구성 */
+  sochungsaGate: { x: 16, z: -13, w: 7, d: 3, h: 4.8 },
 } as const
 
 /** 유적을 두르는 소나무 — 다시면 향나무보다 짙고 옹이진 실루엣 */
@@ -51,6 +60,8 @@ export const PINES: ReadonlyArray<[x: number, z: number, scale: number]> = [
   [-46, -20, 1.1], [-40, 4, 1.0], [-10, -30, 1.05], [30, -32, 1.1],
   [50, 0, 1.0], [50, 34, 1.1], [10, 40, 0.95], [-40, 30, 1.0],
   [0, -6, 0.9], [24, 4, 0.95],
+  // 소충사 진입 돌계단 양옆 — 답사 영상 속 "돌계단을 오르는 길, 양옆의 큰 소나무"를 재구성
+  [12, -12, 0.85], [20, -12, 0.9], [12, -6, 0.8], [20, -6, 0.85],
 ]
 
 /**
@@ -61,4 +72,7 @@ export const COLLIDERS: readonly Box[] = [
   box(LAYOUT.birthplace.x, LAYOUT.birthplace.z, LAYOUT.birthplace.w, LAYOUT.birthplace.d),
   box(LAYOUT.sochungsa.x, LAYOUT.sochungsa.z, LAYOUT.sochungsa.w, LAYOUT.sochungsa.d),
   box(LAYOUT.changseon.x, LAYOUT.changseon.z, LAYOUT.changseon.w, LAYOUT.changseon.d),
+  // 소충사 문루 — 가운데 어간은 비우고 양쪽 협칸만 막습니다
+  box(LAYOUT.sochungsaGate.x - 2.4, LAYOUT.sochungsaGate.z, 1.8, LAYOUT.sochungsaGate.d),
+  box(LAYOUT.sochungsaGate.x + 2.4, LAYOUT.sochungsaGate.z, 1.8, LAYOUT.sochungsaGate.d),
 ]

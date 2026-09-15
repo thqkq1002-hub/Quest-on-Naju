@@ -1,6 +1,16 @@
-import { Instance, Instances } from '@react-three/drei'
+import { Html, Instance, Instances } from '@react-three/drei'
 import { PALETTE } from '@/lib/palette'
+import { NaDaeyongBody } from '../../bodies'
 import { LAYOUT, PINES } from './layout'
+
+const label: React.CSSProperties = {
+  whiteSpace: 'nowrap',
+  color: '#4a3620',
+  fontSize: 20,
+  fontWeight: 700,
+  textShadow: '0 1px 6px rgba(255,247,224,.8)',
+  pointerEvents: 'none',
+}
 
 /**
  * 문평면 조형물 — 나대용 장군 유적.
@@ -59,43 +69,53 @@ export function Birthplace() {
   )
 }
 
-/** 홍살문 — 사당·서원 입구에 세우는 붉은 화살 문. 기둥 사이로 지나갈 수 있습니다 */
-function Hongsalmun({ z }: { z: number }) {
+/**
+ * 소충사 문루 — 답사 영상에서 확인되는 실제 2층 대문. 현판을 건 붉은
+ * 문루로, 단순한 홍살문보다 격식 있는 사당 정문입니다. 가운데 어간으로
+ * 지나가고, 양쪽 협칸은 벽으로 막혀 있습니다.
+ */
+export function SochungsaGate() {
+  const g = LAYOUT.sochungsaGate
+  const wingX = 2.4
+  const wingW = 1.8
   return (
-    <group position={[0, 0, z]}>
-      {[-1.6, 1.6].map((x) => (
-        <mesh key={x} position={[x, 2.2, 0]} castShadow>
-          <boxGeometry args={[0.28, 4.4, 0.28]} />
+    <group position={[g.x, 0, g.z]}>
+      {[-wingX, wingX].map((dx) => (
+        <mesh key={dx} position={[dx, g.h * 0.4, 0]} castShadow receiveShadow>
+          <boxGeometry args={[wingW, g.h * 0.8, g.d]} />
           <meshLambertMaterial color={PALETTE.dancheongRed} flatShading />
         </mesh>
       ))}
-      <mesh position={[0, 4.3, 0]} castShadow>
-        <boxGeometry args={[3.6, 0.16, 0.16]} />
-        <meshLambertMaterial color={PALETTE.dancheongRed} flatShading />
+      {/* 어간 기둥 */}
+      {[-1.1, 1.1].map((dx) => (
+        <mesh key={dx} position={[dx, g.h * 0.42, 0]} castShadow>
+          <boxGeometry args={[0.3, g.h * 0.84, g.d - 0.3]} />
+          <meshLambertMaterial color={PALETTE.hanokWood} flatShading />
+        </mesh>
+      ))}
+      {/* 2층 누각 */}
+      <mesh position={[0, g.h * 0.8, 0]} castShadow>
+        <boxGeometry args={[g.w * 0.92, g.h * 0.3, g.d * 0.82]} />
+        <meshLambertMaterial color={PALETTE.dancheongGreen} flatShading />
       </mesh>
-      {/* 살대 — 세로 창살 */}
-      <Instances limit={9}>
-        <boxGeometry args={[0.06, 1.7, 0.06]} />
-        <meshLambertMaterial color={PALETTE.dancheongRed} flatShading />
-        {Array.from({ length: 9 }, (_, i) => (
-          <Instance key={i} position={[-1.4 + i * 0.35, 3.5, 0]} />
-        ))}
-      </Instances>
-      {/* 꼭대기 삼지창 장식 */}
-      <mesh position={[0, 4.55, 0]}>
-        <coneGeometry args={[0.12, 0.5, 4]} />
-        <meshLambertMaterial color={PALETTE.dancheongRed} flatShading />
+      <TileRoof w={g.w} d={g.d + 1} y={g.h + 0.3} />
+      {/* 현판 */}
+      <mesh position={[0, g.h * 0.55, g.d / 2 + 0.05]}>
+        <boxGeometry args={[1.8, 0.6, 0.06]} />
+        <meshLambertMaterial color="#1c1712" flatShading />
       </mesh>
+      <Html position={[0, g.h + 1.4, g.d / 2 + 0.4]} center distanceFactor={54} zIndexRange={[10, 0]}>
+        <div style={label}>소충사 문루</div>
+      </Html>
     </group>
   )
 }
 
-/** 소충사 — 나대용 장군의 위패를 모신 사당. 단청 기둥 + 홍살문 */
+/** 소충사 — 나대용 장군의 위패를 모신 사당. 단청 기둥 + 문루 */
 export function Sochungsa() {
   const s = LAYOUT.sochungsa
   return (
     <group position={[s.x, 0, s.z]}>
-      <Hongsalmun z={s.d / 2 + 5} />
       {/* 사당 몸체 */}
       <mesh position={[0, s.h * 0.42, 0]} castShadow receiveShadow>
         <boxGeometry args={[s.w, s.h * 0.5, s.d]} />
@@ -262,5 +282,43 @@ export function PineTrees() {
         <Instance key={i} position={[x, 1.6 * s, z]} scale={s} />
       ))}
     </Instances>
+  )
+}
+
+/**
+ * 나대용 장군 동상 — 답사·관련 영상에서 확인되는 장군상을 재구성.
+ * 사당의 살아 있는 NPC들과 달리 장군 본인은 이 동상으로만 등장합니다.
+ */
+export function NaDaeyongStatue() {
+  const { x, z, h } = LAYOUT.statue
+  return (
+    <group position={[x, 0, z]}>
+      <mesh position={[0, h * 0.22, 0]} castShadow receiveShadow>
+        <boxGeometry args={[1.6, h * 0.44, 1.6]} />
+        <meshLambertMaterial color={PALETTE.stone} flatShading />
+      </mesh>
+      <mesh position={[0, h * 0.46, 0]} castShadow>
+        <boxGeometry args={[1.9, h * 0.06, 1.9]} />
+        <meshLambertMaterial color={PALETTE.stoneDark} flatShading />
+      </mesh>
+      <group position={[0, h * 0.49, 0]} scale={1.3}>
+        <NaDaeyongBody />
+      </group>
+      <Html position={[0, h + 1.6, 0]} center distanceFactor={44} zIndexRange={[10, 0]}>
+        <div style={label}>나대용 장군 동상</div>
+      </Html>
+    </group>
+  )
+}
+
+/** 소충사 진입 돌계단 — 답사 영상 속, 문루까지 이어지는 넓은 돌길을 재구성 */
+export function SochungsaStair() {
+  const g = LAYOUT.sochungsaGate
+  const len = 14
+  return (
+    <mesh position={[g.x, 0.03, g.z + g.d / 2 + len / 2]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      <planeGeometry args={[5, len]} />
+      <meshLambertMaterial color={PALETTE.stone} flatShading />
+    </mesh>
   )
 }

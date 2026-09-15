@@ -1,12 +1,22 @@
+import { Html, Instance, Instances } from '@react-three/drei'
 import { PALETTE } from '@/lib/palette'
-import { GATE_GAP, LAYOUT, WALL_HALF, type GateId } from './layout'
+import { GATE_GAP, HANOK_VILLAGE, LAYOUT, WALL_HALF, type GateId } from './layout'
 
 /**
- * 나주읍성 조형물 — 성곽·4대문·금성관.
+ * 나주읍성 조형물 — 성곽·4대문·금성관·망화루·동헌·초가 민가.
  *
  * 문평면과 같은 조선시대 팔레트(흙벽·기와·단청)를 그대로 씁니다. 같은
  * 왕조, 같은 재질감이라 새 색을 만들 이유가 없습니다.
  */
+
+const label: React.CSSProperties = {
+  whiteSpace: 'nowrap',
+  color: '#4a3620',
+  fontSize: 20,
+  fontWeight: 700,
+  textShadow: '0 1px 6px rgba(255,247,224,.8)',
+  pointerEvents: 'none',
+}
 
 /** 기와지붕 — 처마가 살짝 들린 맞배지붕. 문평면 TileRoof와 같은 형태입니다 */
 function TileRoof({ w, d, y, color = PALETTE.tileRoof }: { w: number; d: number; y: number; color?: string }) {
@@ -205,6 +215,134 @@ export function GomtangHouse() {
           <meshBasicMaterial color="#ffffff" transparent opacity={0.45 - i * 0.1} />
         </mesh>
       ))}
+    </group>
+  )
+}
+
+/**
+ * 망화루 — 금성관(객사)의 정문. 답사 영상 속 "객사의 정문인 망화루로
+ * 들어가고 있습니다"라는 설명을 그대로 옮겼습니다. 가운데 어간으로
+ * 지나가고, 양쪽 협칸은 벽으로 막혀 있습니다.
+ */
+export function Manghwaru() {
+  const g = LAYOUT.manghwaru
+  const wingX = 3.6
+  const wingW = 2.6
+  return (
+    <group position={[g.x, 0, g.z]}>
+      {/* 양쪽 협칸 벽 */}
+      {[-wingX, wingX].map((dx) => (
+        <mesh key={dx} position={[dx, g.h * 0.4, 0]} castShadow receiveShadow>
+          <boxGeometry args={[wingW, g.h * 0.8, g.d]} />
+          <meshLambertMaterial color={PALETTE.hanokWall} flatShading />
+        </mesh>
+      ))}
+      {/* 어간 기둥 — 단청 */}
+      {[-1.7, 1.7].map((dx) => (
+        <mesh key={dx} position={[dx, g.h * 0.42, 0]} castShadow>
+          <boxGeometry args={[0.4, g.h * 0.84, g.d - 0.3]} />
+          <meshLambertMaterial color={PALETTE.dancheongRed} flatShading />
+        </mesh>
+      ))}
+      {/* 2층 누각 — 문루 */}
+      <mesh position={[0, g.h * 0.82, 0]} castShadow>
+        <boxGeometry args={[g.w * 0.94, g.h * 0.28, g.d * 0.86]} />
+        <meshLambertMaterial color={PALETTE.dancheongGreen} flatShading />
+      </mesh>
+      <TileRoof w={g.w} d={g.d + 1} y={g.h + 0.3} />
+      <Html position={[0, g.h + 1.4, g.d / 2 + 0.4]} center distanceFactor={54} zIndexRange={[10, 0]}>
+        <div style={label}>망화루</div>
+      </Html>
+    </group>
+  )
+}
+
+/** 동헌 — 목사가 정무를 보던 건물. 금성관보다 낮고 수수합니다 */
+export function Dongheon() {
+  const d = LAYOUT.dongheon
+  return (
+    <group position={[d.x, 0, d.z]}>
+      <mesh position={[0, 0.3, 0]} receiveShadow castShadow>
+        <boxGeometry args={[d.w + 2, 0.6, d.d + 2]} />
+        <meshLambertMaterial color={PALETTE.stone} flatShading />
+      </mesh>
+      <mesh position={[0, 0.6 + d.h * 0.36, 0]} castShadow receiveShadow>
+        <boxGeometry args={[d.w, d.h * 0.5, d.d]} />
+        <meshLambertMaterial color={PALETTE.hanokWall} flatShading />
+      </mesh>
+      {[-d.w / 2 + 1, -d.w / 6, d.w / 6, d.w / 2 - 1].map((x) => (
+        <mesh key={x} position={[x, 0.6 + d.h * 0.19, d.d / 2 + 0.06]} castShadow>
+          <boxGeometry args={[0.34, d.h * 0.42, 0.34]} />
+          <meshLambertMaterial color={PALETTE.dancheongRed} flatShading />
+        </mesh>
+      ))}
+      <TileRoof w={d.w} d={d.d} y={0.6 + d.h * 0.62} />
+      <Html position={[0, 0.6 + d.h + 1, 0]} center distanceFactor={54} zIndexRange={[10, 0]}>
+        <div style={label}>동헌</div>
+      </Html>
+    </group>
+  )
+}
+
+/** 초가 민가 한 채 — 흙벽에 둥글게 얹은 볏짚 지붕 */
+function HanokHouse({ x, z, rotY }: { x: number; z: number; rotY: number }) {
+  return (
+    <group position={[x, 0, z]} rotation={[0, rotY, 0]}>
+      <mesh position={[0, 0.7, 0]} castShadow receiveShadow>
+        <boxGeometry args={[3.4, 1.4, 2.6]} />
+        <meshLambertMaterial color={PALETTE.hanokWall} flatShading />
+      </mesh>
+      {/* 볏짚 처마 — 벽보다 넓게 둘러 그늘을 드리웁니다 */}
+      <mesh position={[0, 1.55, 0]} castShadow>
+        <boxGeometry args={[4.1, 0.16, 3.3]} />
+        <meshLambertMaterial color={PALETTE.thatchRoofDark} flatShading />
+      </mesh>
+      {/* 둥근 볏짚 지붕 */}
+      <mesh position={[0, 2.15, 0]} castShadow>
+        <coneGeometry args={[2.5, 1.5, 9]} />
+        <meshLambertMaterial color={PALETTE.thatchRoof} flatShading />
+      </mesh>
+      {/* 작은 사립문 */}
+      <mesh position={[0, 0.55, 1.32]}>
+        <boxGeometry args={[0.9, 1.1, 0.06]} />
+        <meshLambertMaterial color={PALETTE.trunk} flatShading />
+      </mesh>
+    </group>
+  )
+}
+
+/**
+ * 초가 민가 마을 — 답사 영상의 항공 재현 장면에서 성 안이 초가지붕
+ * 민가로 빽빽했던 모습을 재구성합니다. → layout.ts HANOK_VILLAGE
+ */
+export function HanokVillage() {
+  return (
+    <>
+      {HANOK_VILLAGE.map((h, i) => (
+        <HanokHouse key={i} x={h.x} z={h.z} rotY={h.rotY} />
+      ))}
+    </>
+  )
+}
+
+/**
+ * 당간지주 — 동점문 안쪽에 남은 돌 깃대 받침 한 쌍. 답사 영상에서
+ * "당(깃발)을 걸어 두는 기둥"이라 소개하는 실제 유구를 재구성했습니다.
+ */
+export function Dangganjiju() {
+  const { x, z } = LAYOUT.dangganjiju
+  return (
+    <group position={[x, 0, z]}>
+      <Instances limit={2}>
+        <boxGeometry args={[0.4, 2.6, 0.3]} />
+        <meshLambertMaterial color={PALETTE.stoneDark} flatShading />
+        {[-0.9, 0.9].map((dx) => (
+          <Instance key={dx} position={[dx, 1.3, 0]} rotation={[0, 0, dx > 0 ? -0.03 : 0.03]} />
+        ))}
+      </Instances>
+      <Html position={[0, 3, 0]} center distanceFactor={54} zIndexRange={[10, 0]}>
+        <div style={{ ...label, fontSize: 16 }}>당간지주</div>
+      </Html>
     </group>
   )
 }

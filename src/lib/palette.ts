@@ -135,6 +135,9 @@ export const PALETTE = {
   tileRoofLight: '#5c636d',
   dancheongRed: '#a83a2e',
   dancheongGreen: '#3f7a5a',
+  /** 초가지붕 — 읍성 안 민가의 볏짚 이엉. 관아의 기와보다 따뜻한 볏짚빛 */
+  thatchRoof: '#c9a84f',
+  thatchRoofDark: '#a8873c',
   turtleShell: '#3f6b45',
   turtleShellDark: '#2f5236',
   dragonGold: '#c9a227',
