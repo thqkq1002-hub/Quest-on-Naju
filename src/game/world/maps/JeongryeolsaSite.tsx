@@ -111,6 +111,7 @@ export function JeongryeolsaSite({ shadows }: { shadows: boolean }) {
       </Html>
       <Interactable
         targetId="info-exhibit"
+        once={false}
         x={LAYOUT.exhibitInfo.x}
         z={LAYOUT.exhibitInfo.z}
         label="유물전시관 살펴보기"
@@ -131,6 +132,7 @@ export function JeongryeolsaSite({ shadows }: { shadows: boolean }) {
       </Html>
       <Interactable
         targetId="info-shrine"
+        once={false}
         x={LAYOUT.shrineInfo.x}
         z={LAYOUT.shrineInfo.z}
         label="사당 위패 살펴보기"

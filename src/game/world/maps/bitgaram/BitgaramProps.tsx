@@ -43,6 +43,41 @@ export function Lake() {
 }
 
 /**
+ * 호수 전망 데크 — 답사 드론 영상 속, 호수공원 물가로 뻗은 목재 데크를
+ * 재구성했습니다. 산책로에서 물 쪽으로 걸어 들어가 쉴 수 있는 자리입니다.
+ */
+export function LakePier() {
+  const l = LAYOUT.lake
+  const px = l.x - l.rx * 0.45
+  const pz = l.z + l.rz * 0.35
+  return (
+    <group position={[px, 0, pz]}>
+      <mesh position={[0, 0.16, 0]} receiveShadow castShadow>
+        <boxGeometry args={[4.4, 0.16, 12]} />
+        <meshLambertMaterial color={PALETTE.smartLifeWood} flatShading />
+      </mesh>
+      {/* 널빤지 이음매 */}
+      {[-1.4, 0, 1.4].map((dx) => (
+        <mesh key={dx} position={[dx, 0.25, 0]}>
+          <boxGeometry args={[0.1, 0.02, 11.6]} />
+          <meshLambertMaterial color={PALETTE.concreteDark} flatShading />
+        </mesh>
+      ))}
+      {/* 난간 — 양옆 */}
+      {[-2.2, 2.2].map((dx) => (
+        <Instances key={dx} limit={5}>
+          <boxGeometry args={[0.08, 0.6, 0.08]} />
+          <meshLambertMaterial color={PALETTE.concreteDark} flatShading />
+          {[-5, -2.5, 0, 2.5, 5].map((dz) => (
+            <Instance key={dz} position={[dx, 0.55, dz]} />
+          ))}
+        </Instances>
+      ))}
+    </group>
+  )
+}
+
+/**
  * 빛가람 호수공원 전망대 — 원기둥 몸체 + 전망 데크 + 첨탑.
  * 실제 높이 39.6m를 이 맵에서 가장 높은 구조물로 살렸습니다.
  */
@@ -84,35 +119,62 @@ export function Observatory() {
   )
 }
 
-/** 한국전력공사 — 유리 외벽 고층 사옥 */
+/**
+ * 한전 팔랑개비 심볼 — 답사 드론 영상 속 사옥 정면의 붉은 원형 로고를
+ * 재구성했습니다. 빨간 원판 위에 흰 날개 세 장을 120도씩 돌려 얹어
+ * "팔랑개비"라는 인상만 남기는 저폴리 단순화입니다.
+ */
+function KepcoLogo({ size = 2.6 }: { size?: number }) {
+  const r = size / 2
+  return (
+    <group>
+      <mesh>
+        <circleGeometry args={[r, 24]} />
+        <meshBasicMaterial color={PALETTE.kepcoRed} />
+      </mesh>
+      <mesh position={[0, 0, 0.002]}>
+        <ringGeometry args={[r * 0.86, r, 24]} />
+        <meshBasicMaterial color={PALETTE.kepcoRedDark} />
+      </mesh>
+      {[0, 1, 2].map((i) => (
+        <mesh key={i} position={[0, 0, 0.004]} rotation={[0, 0, (i / 3) * Math.PI * 2 + Math.PI / 6]}>
+          <planeGeometry args={[r * 0.3, r * 0.86]} />
+          <meshBasicMaterial color="#ffffff" />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
+/**
+ * 한국전력공사 — 답사 드론 영상에서 확인되는 비스듬히 꼬인 유리 외벽과
+ * 정면의 붉은 팔랑개비 로고를 재구성했습니다. 층을 다섯 단으로 나눠
+ * 한 단씩 살짝 더 돌려 쌓아, 실제 사옥의 "꼬인 매스" 실루엣을 흉내 냅니다.
+ */
 export function KepcoTower() {
   const k = LAYOUT.kepco
-  const floors = 9
-  const floorH = k.h / floors
+  const SEGMENTS = 5
+  const segH = k.h / SEGMENTS
+  const TWIST_DEG = 3.2
 
-  const windows = Array.from({ length: floors }, (_, f) => f)
+  const LOGO_SEG = 1
 
   return (
     <group position={[k.x, 0, k.z]}>
-      <mesh position={[0, k.h / 2, 0]} castShadow receiveShadow>
-        <boxGeometry args={[k.w, k.h, k.d]} />
-        <meshLambertMaterial color={PALETTE.kepcoNavy} flatShading />
-      </mesh>
-      {/* 유리 커튼월 — 정면·후면 통유리 띠 */}
-      {[1, -1].map((side) => (
-        <Instances key={side} limit={floors} position={[0, 0, (side * k.d) / 2 + side * 0.1]}>
-          <boxGeometry args={[k.w - 1.4, floorH * 0.7, 0.1]} />
-          <meshLambertMaterial color={PALETTE.glassBlue} flatShading />
-          {windows.map((f) => (
-            <Instance key={f} position={[0, f * floorH + floorH * 0.55, 0]} />
-          ))}
-        </Instances>
+      {Array.from({ length: SEGMENTS }, (_, i) => (
+        <group key={i} position={[0, segH * i + segH / 2, 0]} rotation={[0, (i * TWIST_DEG * Math.PI) / 180, 0]}>
+          <mesh castShadow receiveShadow>
+            <boxGeometry args={[k.w, segH * 0.94, k.d]} />
+            <meshLambertMaterial color={i % 2 === 0 ? PALETTE.kepcoNavy : PALETTE.glassBlue} flatShading />
+          </mesh>
+          {/* 정면 로고 — 아래에서 두 번째 단(가장 덜 꼬인 자리)의 남쪽(진입로) 면에 붙여, 꼬임에 상관없이 벽에 붙어 있게 합니다 */}
+          {i === LOGO_SEG && (
+            <group position={[0, 0, k.d / 2 + 0.06]}>
+              <KepcoLogo />
+            </group>
+          )}
+        </group>
       ))}
-      {/* 옥상 로고 판 — 회사명 대신 전력 상징(번개) */}
-      <mesh position={[0, k.h + 0.9, 0]} castShadow>
-        <boxGeometry args={[3.2, 1.8, 0.2]} />
-        <meshLambertMaterial color={PALETTE.steelYellow} flatShading />
-      </mesh>
     </group>
   )
 }
@@ -311,6 +373,54 @@ export function CitySkyline() {
         {SKYLINE.map(([x, z, w, h], i) => (
           <Instance key={i} position={[x, h + 0.3, z]} scale={[w + 0.6, 0.5, w * 0.82 + 0.6]} />
         ))}
+      </Instances>
+    </>
+  )
+}
+
+/**
+ * 배경 아파트 단지 — 답사 드론 영상에서 확인되는, 한쪽 방향에 무리 지어
+ * 선 흰 고층 주거동들을 재구성합니다. CitySkyline이 관공서·오피스가
+ * 섞인 전경이라면, 이쪽은 색과 모양을 통일한 순수 주거 단지라 한눈에
+ * 다른 구역으로 읽힙니다 — 실제 혁신도시도 업무·주거 지구가 나뉘어
+ * 있습니다. 동남쪽 한 구역에만 몰아서, "저기부터는 아파트촌"이라는
+ * 방향성을 줍니다.
+ */
+const APT_COUNT = 16
+
+const APARTMENTS: ReadonlyArray<[x: number, z: number, w: number, h: number]> = Array.from(
+  { length: APT_COUNT },
+  (_, i) => {
+    // 정남 ~ 정동 사이 한 방위각 구간에만 몰아 세웁니다
+    const a = Math.PI * 0.05 + (i / APT_COUNT) * Math.PI * 0.4 + (hash(i * 4.4) - 0.5) * 0.1
+    const r = 150 + hash(i * 8.8) * 75
+    const x = Math.cos(a) * r
+    const z = Math.sin(a) * r * 0.8
+    const w = 7 + hash(i * 2.2) * 3
+    const h = 27 + hash(i * 6.6) * 22
+    return [x, z, w, h]
+  },
+)
+
+export function ApartmentDistrict() {
+  return (
+    <>
+      <Instances limit={APT_COUNT}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshLambertMaterial color={PALETTE.apartmentWhite} flatShading />
+        {APARTMENTS.map(([x, z, w, h], i) => (
+          <Instance key={i} position={[x, h / 2, z]} scale={[w, h, w * 0.6]} />
+        ))}
+      </Instances>
+      {/* 발코니 띠 — 동마다 네 층 간격의 짙은 가로줄로 "주거동"임을 드러냅니다 */}
+      <Instances limit={APT_COUNT * 4}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshLambertMaterial color={PALETTE.apartmentWhiteDark} flatShading />
+        {APARTMENTS.flatMap(([x, z, w, h], i) =>
+          [0.25, 0.45, 0.65, 0.85].map((f, j) => (
+            <Instance key={`${i}-${j}`} position={[x, h * f, z + (w * 0.6) / 2 + 0.05]} scale={[w * 0.96, h * 0.025, 0.1]} />
+          )),
+        )}
       </Instances>
     </>
   )

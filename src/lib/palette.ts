@@ -116,7 +116,13 @@ export const PALETTE = {
   concrete: '#dcdad2',
   concreteDark: '#b8b4a8',
   kepcoNavy: '#1f3a63',
+  /** 한전 로고 — 답사 영상 속 사옥 정면의 붉은 팔랑개비 심볼 */
+  kepcoRed: '#e0322a',
+  kepcoRedDark: '#b8241d',
   kentechGreen: '#3fa073',
+  /** 배경 아파트 단지 — 답사 영상 속 흰 고층 주거동 무리 */
+  apartmentWhite: '#eef0ee',
+  apartmentWhiteDark: '#cfd3d2',
   /** 전력거래소 — 관제센터다운 짙은 그래파이트 + 경고등 주황 */
   kpxGraphite: '#3a4048',
   kpxScreen: '#e8843f',

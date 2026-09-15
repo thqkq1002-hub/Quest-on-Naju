@@ -15,6 +15,7 @@ import { setTerrain } from '../terrain'
 import { useGameStore } from '@/store/gameStore'
 import { BOUNDS, COLLIDERS, LAYOUT } from './bitgaram/layout'
 import {
+  ApartmentDistrict,
   CitySkyline,
   InfoBoard,
   KentechCampus,
@@ -22,6 +23,7 @@ import {
   KoccaStudio,
   KpxCenter,
   Lake,
+  LakePier,
   Observatory,
   SmartLifeCenter,
   TreeLine,
@@ -91,8 +93,10 @@ export function BitgaramSite({ shadows }: { shadows: boolean }) {
       {/* 실제로 걸어갈 수 있는 범위 밖의 배경 스카이라인 — 혁신도시다운
           밀도를 줍니다. 여섯 거점만 있으면 도시가 아니라 공원처럼 보입니다 */}
       <CitySkyline />
+      <ApartmentDistrict />
 
       <Lake />
+      <LakePier />
       <TreeLine />
 
       {/* 빛가람 호수공원 전망대 */}
