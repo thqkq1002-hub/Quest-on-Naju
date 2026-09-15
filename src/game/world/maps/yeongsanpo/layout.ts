@@ -46,11 +46,12 @@ export const LAYOUT = {
   literatureInfo: { x: 0, z: -14 },
   literatureQuiz: { x: 8, z: -14 },
 
-  /** [구역 3] 영산포 홍어거리 — 동쪽. 좌판 셋이 늘어선 짧은 거리 */
+  /** [구역 3] 영산포 홍어거리 — 동쪽. 좌판 셋이 늘어선 짧은 거리.
+   *  이름은 실제 영산3길 홍어거리에서 확인되는 상호(홍어세상·김지순홍어·금성수산)를 씁니다. */
   hongeoStalls: [
-    { x: 26, z: -20 },
-    { x: 38, z: -20 },
-    { x: 50, z: -20 },
+    { x: 26, z: -20, name: '홍어세상' },
+    { x: 38, z: -20, name: '김지순홍어' },
+    { x: 50, z: -20, name: '금성수산' },
   ],
   hongeoTrigger: { x: 38, z: -10 },
   /** 홍어거리 마스코트 "홍이" — 좌판보다 앞쪽, 거리 초입에서 맞아 줍니다 */
@@ -61,7 +62,54 @@ export const LAYOUT = {
    * 흑산도 홍어도, 수운 이야기도 결국 이 뱃길에서 시작됩니다.
    */
   wharf: { x: 18, nearZ: -44, farZ: -60, w: 14 },
+
+  /** 영산포 등대 — 선착장 옆에서 뱃길을 인도하던 흰 등대. 실제 높이 8.65m를 게임 스케일로 재구성 */
+  lighthouse: { x: 34, z: -48, h: 7.2 },
+
+  /** 황포돛배 승선 매표소 — 선착장 서쪽 진입로 */
+  wharfBooth: { x: 4, z: -40 },
+
+  /** 죽전골목 초입의 노포 "삼화홍어" — 흰 정면 + 붉은 벽돌 측면의 랜드마크 상점.
+   *  홍어거리 좌판들보다 동쪽, 거리 맨 끝에서 거리를 마무리합니다. */
+  samhwa: { x: 60, z: -14, w: 8, d: 6, h: 5.2 },
+
+  /** 거리 이름표 — 등대길·선창길·영산3길, 실제 도로명을 그대로 씁니다 */
+  streetSigns: [
+    { x: 16, z: -38, rotY: 0, name: '등대길' },
+    { x: -14, z: -38, rotY: 0, name: '선창길' },
+    { x: 20, z: -8, rotY: Math.PI / 2, name: '영산3길' },
+  ],
 } as const
+
+/**
+ * 배경 민가 — 강변 거리에서 확인되는 파란 지붕 창고, 기와 민가, 외부 계단이 달린
+ * 흰 2층 주택을 재구성한 배경 건물입니다. 플레이 동선을 막지 않는 자리에 배치해
+ * "사람이 실제로 사는 거리"라는 인상을 더합니다. 근경 요소가 아니라 실내 진입은 없습니다.
+ */
+export const BACKGROUND_HOUSES: ReadonlyArray<{
+  x: number
+  z: number
+  w: number
+  d: number
+  h: number
+  roof: 'tile' | 'blue' | 'white2f'
+}> = [
+  { x: -60, z: -16, w: 6, d: 5, h: 3.6, roof: 'blue' },
+  { x: -60, z: 8, w: 5, d: 5, h: 3.2, roof: 'tile' },
+  { x: 62, z: 8, w: 5, d: 5, h: 3.2, roof: 'tile' },
+  { x: -16, z: 34, w: 6, d: 5, h: 3.4, roof: 'white2f' },
+  { x: 16, z: 34, w: 6, d: 5, h: 3.4, roof: 'tile' },
+  { x: 48, z: 4, w: 5, d: 5, h: 3.2, roof: 'tile' },
+]
+
+/** 타오르는 강 문학관 앞 돌·자갈 정원 — 실제 문학관 마당의 돌 포인트를 재구성 */
+export const GARDEN_ROCKS: ReadonlyArray<[x: number, z: number, s: number]> = [
+  [-2.6, -15.2, 0.9],
+  [-1.2, -14.4, 0.6],
+  [1.6, -15.6, 0.75],
+  [2.8, -14.6, 0.55],
+  [0.2, -13.8, 0.5],
+]
 
 /** 거리를 두르는 나무 — 저층부 소나무보다 밝은 활엽수로, 근대 거리 느낌을 냅니다 */
 export const STREET_TREES: ReadonlyArray<[x: number, z: number, scale: number]> = [
@@ -76,4 +124,6 @@ export const STREET_TREES: ReadonlyArray<[x: number, z: number, scale: number]> 
 export const COLLIDERS: readonly Box[] = [
   box(LAYOUT.gallery.x, LAYOUT.gallery.z, LAYOUT.gallery.w, LAYOUT.gallery.d),
   box(LAYOUT.literature.x, LAYOUT.literature.z, LAYOUT.literature.w, LAYOUT.literature.d),
+  box(LAYOUT.samhwa.x, LAYOUT.samhwa.z, LAYOUT.samhwa.w, LAYOUT.samhwa.d),
+  ...BACKGROUND_HOUSES.map((h) => box(h.x, h.z, h.w, h.d)),
 ]

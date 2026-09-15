@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import type { Group } from 'three'
 import { PALETTE } from '@/lib/palette'
-import { BOAT_ROUTE, LAYOUT, RIVER, STREET_TREES } from './layout'
+import { BACKGROUND_HOUSES, BOAT_ROUTE, GARDEN_ROCKS, LAYOUT, RIVER, STREET_TREES } from './layout'
 
 /**
  * 영산포 조형물 — 근대문화유산 거리 + 홍어거리.
@@ -12,6 +12,15 @@ import { BOAT_ROUTE, LAYOUT, RIVER, STREET_TREES } from './layout'
  * 영산강을 닮은 청록 지붕, 홍어거리는 시장 특유의 원색 차양.
  * → layout.ts 상단 고증 메모.
  */
+
+const label: React.CSSProperties = {
+  whiteSpace: 'nowrap',
+  color: '#243038',
+  fontSize: 22,
+  fontWeight: 700,
+  textShadow: '0 1px 6px rgba(255,255,255,.75)',
+  pointerEvents: 'none',
+}
 
 /** 영산강 — 거리 북쪽을 동서로 가로지릅니다 */
 export function River() {
@@ -230,10 +239,26 @@ export function LiteratureHall() {
   )
 }
 
-/** 좌판 하나 — 차양 + 좌판대 + 매달린 홍어(말린 생선 실루엣) */
-function HongeoStall({ x, z, awning }: { x: number; z: number; awning: string }) {
+/** 좌판 하나 — 차양 + 좌판대 + 매달린 홍어(말린 생선 실루엣) + 상호 간판 */
+function HongeoStall({ x, z, awning, name }: { x: number; z: number; awning: string; name: string }) {
   return (
     <group position={[x, 0, z]}>
+      <Html position={[0, 2.9, 0]} center distanceFactor={40} zIndexRange={[10, 0]}>
+        <div
+          style={{
+            whiteSpace: 'nowrap',
+            color: '#fff',
+            background: 'rgba(40,30,26,.55)',
+            padding: '2px 8px',
+            borderRadius: 6,
+            fontSize: 14,
+            fontWeight: 700,
+            pointerEvents: 'none',
+          }}
+        >
+          {name}
+        </div>
+      </Html>
       {/* 기둥 넷 */}
       {[
         [-1.6, -1.1],
@@ -273,9 +298,313 @@ export function HongeoStreet() {
   return (
     <>
       {LAYOUT.hongeoStalls.map((s, i) => (
-        <HongeoStall key={s.x} x={s.x} z={s.z} awning={awnings[i % awnings.length]} />
+        <HongeoStall key={s.x} x={s.x} z={s.z} awning={awnings[i % awnings.length]} name={s.name} />
       ))}
     </>
+  )
+}
+
+/**
+ * 영산포 등대 — 선착장 옆에서 배를 인도하던 흰 등대. 삼각 콘크리트 받침,
+ * 목재 울타리, 위층 붉은 띠, 꼭대기 유리 등롱 순서로 실제 등대의 실루엣을 따릅니다.
+ */
+export function Lighthouse() {
+  const { x, z, h } = LAYOUT.lighthouse
+  return (
+    <group position={[x, 0, z]}>
+      {/* 삼각 콘크리트 받침 */}
+      <mesh position={[0, 0.35, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[1.5, 1.9, 0.7, 3]} />
+        <meshLambertMaterial color={PALETTE.stoneDark} flatShading />
+      </mesh>
+      {/* 목재 울타리 — 받침을 두르는 낮은 기둥 6개 */}
+      <Instances limit={6}>
+        <cylinderGeometry args={[0.05, 0.05, 0.6, 5]} />
+        <meshLambertMaterial color={PALETTE.trunk} flatShading />
+        {[0, 1, 2, 3, 4, 5].map((i) => {
+          const a = (i / 6) * Math.PI * 2
+          return <Instance key={i} position={[Math.cos(a) * 1.7, 0.6, Math.sin(a) * 1.7]} />
+        })}
+      </Instances>
+      {/* 등탑 몸체 — 위로 갈수록 좁아집니다 */}
+      <mesh position={[0, 0.7 + h * 0.42, 0]} castShadow>
+        <cylinderGeometry args={[0.62, 0.95, h * 0.84, 10]} />
+        <meshLambertMaterial color={PALETTE.lighthouseWhite} flatShading />
+      </mesh>
+      {/* 상부 붉은 띠 */}
+      <mesh position={[0, 0.7 + h * 0.72, 0]}>
+        <cylinderGeometry args={[0.66, 0.7, h * 0.16, 10]} />
+        <meshLambertMaterial color={PALETTE.lighthouseRed} flatShading />
+      </mesh>
+      {/* 상부 가로 금속 난간 */}
+      <mesh position={[0, 0.7 + h * 0.82, 0]}>
+        <cylinderGeometry args={[0.72, 0.72, 0.08, 10]} />
+        <meshLambertMaterial color="#3a3a3a" flatShading />
+      </mesh>
+      {/* 유리 등롱 + 지붕 */}
+      <mesh position={[0, 0.7 + h * 0.92, 0]} castShadow>
+        <cylinderGeometry args={[0.5, 0.5, h * 0.16, 8]} />
+        <meshLambertMaterial color={PALETTE.windowGlass} flatShading />
+      </mesh>
+      <mesh position={[0, 0.7 + h * 1.02, 0]} castShadow>
+        <coneGeometry args={[0.6, 0.45, 8]} />
+        <meshLambertMaterial color={PALETTE.lighthouseRed} flatShading />
+      </mesh>
+      {/* 은은한 등대 불빛 */}
+      <pointLight position={[0, 0.7 + h * 0.92, 0]} color="#fff3c4" intensity={0.8} distance={14} />
+      <Html position={[0, 0.7 + h + 1.1, 0]} center distanceFactor={50} zIndexRange={[10, 0]}>
+        <div style={label}>영산포 등대</div>
+      </Html>
+    </group>
+  )
+}
+
+/** 황포돛배 승선 매표소 — 작은 목조 부스 + 차양 + 매표창 */
+export function WharfBooth() {
+  const { x, z } = LAYOUT.wharfBooth
+  return (
+    <group position={[x, 0, z]}>
+      <mesh position={[0, 1, 0]} castShadow receiveShadow>
+        <boxGeometry args={[2.2, 2, 1.6]} />
+        <meshLambertMaterial color={PALETTE.litHallWood} flatShading />
+      </mesh>
+      {/* 매표창 */}
+      <mesh position={[0, 1.15, 0.81]}>
+        <boxGeometry args={[1.2, 0.7, 0.04]} />
+        <meshLambertMaterial color={PALETTE.windowGlass} flatShading />
+      </mesh>
+      {/* 앞으로 뻗은 차양 */}
+      <mesh position={[0, 2.15, 1.1]} rotation={[0.25, 0, 0]} castShadow>
+        <boxGeometry args={[2.6, 0.1, 1.4]} />
+        <meshLambertMaterial color={PALETTE.steelBlue} flatShading />
+      </mesh>
+      <Html position={[0, 2.7, 0]} center distanceFactor={44} zIndexRange={[10, 0]}>
+        <div style={{ ...label, fontSize: 15 }}>매표소</div>
+      </Html>
+    </group>
+  )
+}
+
+/**
+ * 죽전골목 초입의 노포 "삼화홍어" — 흰 정면과 붉은 벽돌 측면이 만나는
+ * 랜드마크 상점. 높은 창, 앞으로 뻗은 차양, 건물 모서리의 작은 등대
+ * 장식까지 실제 거리 사진에서 확인되는 특징을 옮겼습니다.
+ */
+export function SamhwaHongeo() {
+  const s = LAYOUT.samhwa
+  return (
+    <group position={[s.x, 0, s.z]}>
+      {/* 흰 정면 */}
+      <mesh position={[0, s.h * 0.5, s.d * 0.22]} castShadow receiveShadow>
+        <boxGeometry args={[s.w, s.h, s.d * 0.56]} />
+        <meshLambertMaterial color={PALETTE.riverHouseWall} flatShading />
+      </mesh>
+      {/* 붉은 벽돌 측면 */}
+      <mesh position={[0, s.h * 0.5, -s.d * 0.22]} castShadow receiveShadow>
+        <boxGeometry args={[s.w, s.h, s.d * 0.56]} />
+        <meshLambertMaterial color={PALETTE.modernBrick} flatShading />
+      </mesh>
+      {/* 높은 창 두 짝 */}
+      {[-s.w * 0.24, s.w * 0.24].map((dx) => (
+        <mesh key={dx} position={[dx, s.h * 0.56, s.d / 2 + 0.03]}>
+          <boxGeometry args={[s.w * 0.28, s.h * 0.5, 0.05]} />
+          <meshLambertMaterial color={PALETTE.windowGlass} flatShading />
+        </mesh>
+      ))}
+      {/* 앞으로 뻗은 차양 */}
+      <mesh position={[0, s.h * 0.72, s.d / 2 + 0.9]} rotation={[0.22, 0, 0]} castShadow>
+        <boxGeometry args={[s.w * 0.86, 0.1, 1.8]} />
+        <meshLambertMaterial color={PALETTE.steelRed} flatShading />
+      </mesh>
+      <FlatRoof w={s.w} d={s.d} y={s.h + 0.2} color={PALETTE.modernRoof} />
+      {/* 모서리의 작은 등대 장식 — 실제 상호 건물 모서리 디테일 */}
+      <mesh position={[s.w / 2 - 0.35, s.h + 0.9, -s.d / 2 + 0.35]} castShadow>
+        <cylinderGeometry args={[0.22, 0.3, 1.4, 8]} />
+        <meshLambertMaterial color={PALETTE.lighthouseWhite} flatShading />
+      </mesh>
+      <mesh position={[s.w / 2 - 0.35, s.h + 1.7, -s.d / 2 + 0.35]}>
+        <coneGeometry args={[0.28, 0.3, 8]} />
+        <meshLambertMaterial color={PALETTE.lighthouseRed} flatShading />
+      </mesh>
+      <Html position={[0, s.h + 0.6, s.d / 2 + 0.3]} center distanceFactor={48} zIndexRange={[10, 0]}>
+        <div style={label}>삼화홍어</div>
+      </Html>
+      {/* "죽전골목" 방향 표시 — 건물 옆 골목 초입 */}
+      <Html position={[-s.w / 2 - 0.6, 2, -s.d / 2 - 0.6]} center distanceFactor={40} zIndexRange={[10, 0]}>
+        <div
+          style={{
+            whiteSpace: 'nowrap',
+            color: '#fff',
+            background: 'rgba(40,30,26,.6)',
+            padding: '2px 8px',
+            borderRadius: 6,
+            fontSize: 13,
+            fontWeight: 700,
+            pointerEvents: 'none',
+          }}
+        >
+          ← 죽전골목
+        </div>
+      </Html>
+    </group>
+  )
+}
+
+/** 거리 이름표 하나 — 낮은 기둥 + 세로 팻말 */
+function StreetSign({ x, z, rotY, name }: { x: number; z: number; rotY: number; name: string }) {
+  return (
+    <group position={[x, 0, z]} rotation={[0, rotY, 0]}>
+      <mesh position={[0, 0.9, 0]} castShadow>
+        <cylinderGeometry args={[0.06, 0.06, 1.8, 6]} />
+        <meshLambertMaterial color="#8a8f92" flatShading />
+      </mesh>
+      <mesh position={[0, 1.55, 0]} castShadow>
+        <boxGeometry args={[1.3, 0.34, 0.05]} />
+        <meshLambertMaterial color={PALETTE.steelBlue} flatShading />
+      </mesh>
+      <Html position={[0, 1.55, 0.04]} center distanceFactor={26} zIndexRange={[10, 0]}>
+        <div style={{ color: '#fff', fontSize: 13, fontWeight: 700, whiteSpace: 'nowrap', pointerEvents: 'none' }}>
+          {name}
+        </div>
+      </Html>
+    </group>
+  )
+}
+
+/** 등대길·선창길·영산3길 이름표 */
+export function StreetSigns() {
+  return (
+    <>
+      {LAYOUT.streetSigns.map((s) => (
+        <StreetSign key={s.name} x={s.x} z={s.z} rotY={s.rotY} name={s.name} />
+      ))}
+    </>
+  )
+}
+
+/** 기와 지붕 민가 한 채 — 배경용 저층 주택 */
+function TileHouse({ w, d, h }: { w: number; d: number; h: number }) {
+  return (
+    <>
+      <mesh position={[0, h * 0.4, 0]} castShadow receiveShadow>
+        <boxGeometry args={[w, h * 0.8, d]} />
+        <meshLambertMaterial color={PALETTE.village} flatShading />
+      </mesh>
+      <mesh position={[0, h * 0.5, d / 2 + 0.03]}>
+        <boxGeometry args={[w * 0.4, h * 0.4, 0.04]} />
+        <meshLambertMaterial color={PALETTE.windowGlass} flatShading />
+      </mesh>
+      <mesh position={[0, h * 0.95, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
+        <coneGeometry args={[Math.max(w, d) * 0.72, h * 0.4, 4]} />
+        <meshLambertMaterial color={PALETTE.tileRoof} flatShading />
+      </mesh>
+    </>
+  )
+}
+
+/** 파란 지붕 창고 한 채 — 긴 박공지붕 + 큰 금속문 */
+function BlueRoofHouse({ w, d, h }: { w: number; d: number; h: number }) {
+  return (
+    <>
+      <mesh position={[0, h * 0.4, 0]} castShadow receiveShadow>
+        <boxGeometry args={[w, h * 0.8, d]} />
+        <meshLambertMaterial color={PALETTE.riverHouseWall} flatShading />
+      </mesh>
+      {/* 큰 금속문 */}
+      <mesh position={[0, h * 0.3, d / 2 + 0.03]}>
+        <boxGeometry args={[w * 0.5, h * 0.5, 0.04]} />
+        <meshLambertMaterial color="#5a6068" flatShading />
+      </mesh>
+      {/* 높은 환기창 */}
+      <mesh position={[0, h * 0.72, d / 2 + 0.03]}>
+        <boxGeometry args={[w * 0.7, h * 0.16, 0.03]} />
+        <meshLambertMaterial color={PALETTE.windowGlass} flatShading />
+      </mesh>
+      <mesh position={[0, h * 0.98, 0]} rotation={[0, Math.PI / 2, 0]} castShadow>
+        <cylinderGeometry args={[0, Math.max(w, d) * 0.42, h * 0.44, 4, 1]} />
+        <meshLambertMaterial color={PALETTE.warehouseRoof} flatShading />
+      </mesh>
+    </>
+  )
+}
+
+/** 외부 계단이 달린 흰 2층 주택 — 크림빛 담장, 작은 기와 출입문, 대나무를 곁들입니다 */
+function White2fHouse({ w, d, h }: { w: number; d: number; h: number }) {
+  return (
+    <>
+      <mesh position={[0, h * 0.5, 0]} castShadow receiveShadow>
+        <boxGeometry args={[w, h, d]} />
+        <meshLambertMaterial color={PALETTE.riverHouseWall} flatShading />
+      </mesh>
+      {/* 2층 창 줄 */}
+      <Instances limit={3}>
+        <boxGeometry args={[0.7, 0.8, 0.04]} />
+        <meshLambertMaterial color={PALETTE.windowGlass} flatShading />
+        {[-w * 0.28, 0, w * 0.28].map((dx) => (
+          <Instance key={dx} position={[dx, h * 0.68, d / 2 + 0.03]} />
+        ))}
+      </Instances>
+      {/* 외부 계단 */}
+      {[0, 1, 2, 3].map((i) => (
+        <mesh key={i} position={[w / 2 + 0.5, 0.15 + i * 0.24, d / 2 - 1.2 + i * 0.42]} castShadow>
+          <boxGeometry args={[0.9, 0.15, 0.42]} />
+          <meshLambertMaterial color={PALETTE.stoneDark} flatShading />
+        </mesh>
+      ))}
+      {/* 평지붕 */}
+      <mesh position={[0, h + 0.15, 0]} castShadow>
+        <boxGeometry args={[w + 0.4, 0.3, d + 0.4]} />
+        <meshLambertMaterial color={PALETTE.concreteDark} flatShading />
+      </mesh>
+      {/* 크림빛 담장 + 작은 기와 출입문 */}
+      <mesh position={[0, 0.5, d / 2 + 1.6]} castShadow>
+        <boxGeometry args={[w * 0.9, 1, 0.14]} />
+        <meshLambertMaterial color={PALETTE.riverHouseFence} flatShading />
+      </mesh>
+      <mesh position={[0, 1.05, d / 2 + 1.6]} rotation={[0, Math.PI / 4, 0]} castShadow>
+        <coneGeometry args={[0.9, 0.5, 4]} />
+        <meshLambertMaterial color={PALETTE.tileRoof} flatShading />
+      </mesh>
+      {/* 대나무 무리 */}
+      <Instances limit={5}>
+        <cylinderGeometry args={[0.05, 0.06, 3, 6]} />
+        <meshLambertMaterial color={PALETTE.bamboo} flatShading />
+        {[-0.6, -0.3, 0, 0.3, 0.6].map((dx, i) => (
+          <Instance key={dx} position={[-w / 2 - 0.8, 1.5, dx + (i % 2 ? 0.3 : -0.3)]} />
+        ))}
+      </Instances>
+    </>
+  )
+}
+
+/**
+ * 배경 민가 — 강변 거리에서 확인되는 파란 지붕 창고, 기와 민가, 외부 계단이 달린
+ * 흰 2층 주택을 재구성한 배경 건물입니다. → layout.ts BACKGROUND_HOUSES
+ */
+export function BackgroundHouses() {
+  return (
+    <>
+      {BACKGROUND_HOUSES.map((h, i) => (
+        <group key={i} position={[h.x, 0, h.z]}>
+          {h.roof === 'blue' && <BlueRoofHouse w={h.w} d={h.d} h={h.h} />}
+          {h.roof === 'tile' && <TileHouse w={h.w} d={h.d} h={h.h} />}
+          {h.roof === 'white2f' && <White2fHouse w={h.w} d={h.d} h={h.h} />}
+        </group>
+      ))}
+    </>
+  )
+}
+
+/** 타오르는 강 문학관 앞 돌·자갈 정원 */
+export function GardenRocks() {
+  return (
+    <Instances limit={GARDEN_ROCKS.length}>
+      <icosahedronGeometry args={[0.4, 0]} />
+      <meshLambertMaterial color={PALETTE.stone} flatShading />
+      {GARDEN_ROCKS.map(([x, z, s], i) => (
+        <Instance key={i} position={[x, 0.18 * s, z]} scale={s} />
+      ))}
+    </Instances>
   )
 }
 

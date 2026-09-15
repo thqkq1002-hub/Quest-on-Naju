@@ -9,13 +9,19 @@ import { setTerrain } from '../terrain'
 import { useGameStore } from '@/store/gameStore'
 import { BOUNDS, COLLIDERS, LAYOUT } from './yeongsanpo/layout'
 import {
+  BackgroundHouses,
+  GardenRocks,
   HistoryGallery,
   HongeoStreet,
   HwangpoBoat,
+  Lighthouse,
   LiteratureHall,
   River,
+  SamhwaHongeo,
+  StreetSigns,
   StreetTrees,
   Wharf,
+  WharfBooth,
 } from './yeongsanpo/YeongsanpoProps'
 
 /**
@@ -80,6 +86,23 @@ export function YeongsanpoSite({ shadows }: { shadows: boolean }) {
       <Wharf />
       <HwangpoBoat />
       <StreetTrees />
+      <BackgroundHouses />
+      <StreetSigns />
+
+      {/* 영산포 등대 — 선착장 옆 랜드마크 */}
+      <Lighthouse />
+      <Interactable
+        targetId="info-yeongsanpo-lighthouse"
+        x={LAYOUT.lighthouse.x + 3}
+        z={LAYOUT.lighthouse.z + 1}
+        label="영산포 등대 안내판 읽기"
+        title="영산포 등대"
+        body="영산강 뱃길을 오가던 배들에게 나루의 위치를 알려주던 등대입니다. 실제 높이는 8.65m로, 지금도 영산포 선착장 옆을 지키고 있습니다."
+        range={3.4}
+      />
+
+      {/* 황포돛배 승선 매표소 */}
+      <WharfBooth />
 
       {/* [구역 1] 영산포 역사갤러리 */}
       <HistoryGallery />
@@ -152,9 +175,20 @@ export function YeongsanpoSite({ shadows }: { shadows: boolean }) {
           <SignPost rotY={-Math.PI / 2} />
         </Interactable>
       )}
+      <GardenRocks />
 
       {/* [구역 3] 영산포 홍어거리 */}
       <HongeoStreet />
+      <SamhwaHongeo />
+      <Interactable
+        targetId="info-yeongsanpo-samhwa"
+        x={LAYOUT.samhwa.x - 6}
+        z={LAYOUT.samhwa.z + 6}
+        label="삼화홍어 안내판 읽기"
+        title="삼화홍어"
+        body="죽전골목 초입에서 오래 자리를 지켜 온 홍어 노포입니다. 흰 정면과 붉은 벽돌 측면이 나란한 모습이 영산포 거리를 대표하는 풍경 중 하나로 꼽힙니다."
+        range={3.4}
+      />
       <Html position={[38, 4.6, -20]} center distanceFactor={56} zIndexRange={[10, 0]}>
         <div style={label}>영산포 홍어거리</div>
       </Html>

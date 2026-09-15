@@ -173,6 +173,17 @@ export const PALETTE = {
   soliMintLight: '#82c9a8',
   pineconeBrown: '#8a6a48',
 
+  // 영산포 배경 거리 — 등대와 강변 민가
+  /** 영산포 등대 — 순백에 가까운 몸체, 뱃사람 눈에 잘 띄어야 합니다 */
+  lighthouseWhite: '#f5f2e8',
+  lighthouseRed: '#c1584c',
+  /** 강변의 파란 지붕 창고 */
+  warehouseRoof: '#3f6f8f',
+  /** 외부 계단이 달린 흰 2층 주택 — 크림빛 담장 */
+  riverHouseWall: '#eee7d8',
+  riverHouseFence: '#d9cfb8',
+  bamboo: '#7fa855',
+
   // UI 강조
   questGold: '#ffd24a',
   questGoldDim: '#8a7a4a',
