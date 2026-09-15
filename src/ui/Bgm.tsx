@@ -1,15 +1,38 @@
 import { useEffect, useRef, useState } from 'react'
 import { useMapStore } from '@/store/mapStore'
+import type { MapId } from '@/game/world/registry'
 import { isMuted, setMuted, startAmbientLoop, unlockAudio } from '@/lib/audio'
-import { OMMAYA_MELODY } from '@/lib/melody'
+import {
+  BITGARAM_MELODY,
+  BOKAMRI_MELODY,
+  JEONGRYEOLSA_MELODY,
+  MUNPYEONG_MELODY,
+  NAJUEUPSEONG_MELODY,
+  NAJUSTATION_MELODY,
+  OMMAYA_MELODY,
+  YEONGSANPO_MELODY,
+  type MelodyNote,
+} from '@/lib/melody'
 
 /**
- * 배경음악 — 게임 전체에서 흐르는 탐험 테마.
- *
- * 다시초를 포함한 모든 맵에서 EXPLORE_MELODY(오르골 톤)가 기본으로
- * 돌고, 드들강 솔밭유원지에서만 <엄마야 누나야>로 자연스럽게 바뀝니다 —
- * 그 노래는 이 게임에서 유일하게 "실제 곡"인 만큼, 다른 모든 곳과
- * 섞이지 않는 그 자리만의 특별한 순간으로 남겨 둡니다.
+ * 지역별 테마 — 다시초(오늘의 학교)만 기본 EXPLORE_MELODY를 그대로 쓰고,
+ * 나머지 여덟 지역은 저마다의 색을 가진 멜로디를 씁니다. 드들강의
+ * <엄마야 누나야>만은 이 게임에서 유일한 "실제 곡"이라 그대로 둡니다.
+ * → src/lib/melody.ts 각 테마 주석에 고른 이유를 적어 뒀습니다.
+ */
+const MAP_MELODY: Partial<Record<MapId, readonly MelodyNote[]>> = {
+  bokamri: BOKAMRI_MELODY,
+  munpyeong: MUNPYEONG_MELODY,
+  najueupseong: NAJUEUPSEONG_MELODY,
+  yeongsanpo: YEONGSANPO_MELODY,
+  jeongryeolsa: JEONGRYEOLSA_MELODY,
+  najustation: NAJUSTATION_MELODY,
+  bitgaram: BITGARAM_MELODY,
+  ddeuldeulgang: OMMAYA_MELODY,
+}
+
+/**
+ * 배경음악 — 지역마다 다른 테마가 흐릅니다.
  *
  * 브라우저는 사용자 제스처 없이는 소리를 내지 않습니다. 페이지가 뜨자마자
  * 재생을 시도는 하되, 실제로 들리는 건 사용자가 뭔가(클릭·키 입력)를 한
@@ -22,7 +45,7 @@ export function Bgm() {
   const unlockedRef = useRef(false)
 
   useEffect(() => {
-    startAmbientLoop(current === 'ddeuldeulgang' ? OMMAYA_MELODY : undefined)
+    startAmbientLoop(MAP_MELODY[current])
   }, [current])
 
   // 첫 사용자 입력에 오디오 잠금을 풉니다 — 이후로는 필요 없으니 스스로 떼어 냅니다
